@@ -1,0 +1,21 @@
+{
+  "_help": "Rules that hide systems a car doesn't have. A rule hides every menu entry for the listed cars whose title contains one of 'titles', when all 'hide_when' options match. Edit freely. 'Show all systems' in the app ignores these rules.",
+  "markets": ["Europe / rest of world", "North America"],
+  "car_options": {
+    "C70": {"body": ["Coupe", "Convertible"]}
+  },
+  "rules": [
+    {
+      "cars": ["C70"],
+      "titles": ["Cab Control Unit", "Roll Over Protection"],
+      "hide_when": {"body": "Coupe"},
+      "why": "Soft top and roll-over bars are convertible only"
+    },
+    {
+      "cars": ["C70"],
+      "titles": ["Immobilizer"],
+      "hide_when": {"market": "North America"},
+      "why": "North American 1998 C70 has no immobilizer (keys not chipped)"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+# build output (installers go on GitHub Releases, not in the repo)
+dist/
+build/
+*.spec
+# Python
+__pycache__/
+*.pyc
+# local
+.p80diag.json
+*.csv

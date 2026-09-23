@@ -1,0 +1,3750 @@
+{
+ "source": "legacy fault-reader EXE",
+ "tables": {
+  "IMM:41": {
+   "id": "IMM:41",
+   "prefix": "IMM",
+   "select_key": null,
+   "select_addr": [
+    65
+   ],
+   "codes": {
+    "0x01": [
+     "IMM-112",
+     "Internal Fault",
+     "Control module Internal fault"
+    ],
+    "0x34": [
+     "IMM-121",
+     "PIN cannot be programmed",
+     "PIN-code Can't be programmed"
+    ],
+    "0x37": [
+     "IMM-122",
+     "Control Module not initiated",
+     "Control module Initiation fault"
+    ],
+    "0x36": [
+     "IMM-132",
+     "Key Codes not programmed",
+     "Key codes Not programmed"
+    ],
+    "0x02": [
+     "IMM-211/213",
+     "Comms fault to engine ECU",
+     "Communication with the engine control module (ECM) Faulty communication"
+    ],
+    "0x03": [
+     "IMM-212/233",
+     "No Contact with Antenna",
+     "Antenna ring Signal missing"
+    ],
+    "0x53": [
+     "IMM-214",
+     "Comms from Engine ECU, wrong MIN code",
+     "Communication with the engine control module (ECM) Wrong MIN code"
+    ],
+    "0x04": [
+     "IMM-221/234",
+     "No Response from Key Transponder",
+     "Transponder communication No communication"
+    ],
+    "0x05": [
+     "IMM-222/235",
+     "Key Code not in memory",
+     "Key unknown Not stored"
+    ],
+    "0x06": [
+     "IMM-223",
+     "Faulty Comms with Key"
+    ],
+    "0x35": [
+     "IMM-225",
+     "Fault programming in key code",
+     "Key codes Software error"
+    ],
+    "0x51": [
+     "IMM-311",
+     "Short Circuit to Positive comm link 2 or 4"
+    ],
+    "0x52": [
+     "IMM-312",
+     "Comms to engine ECU, Short Circuit to Ground",
+     "Communication with the engine control module (ECM) Signal too low"
+    ],
+    "0x54": [
+     "IMM-321",
+     "Initiating Signal Absent from ECM",
+     "Communication with the engine control module (ECM) Signal missing"
+    ],
+    "0x32": [
+     "IMM-324",
+     "VERLOG code missing",
+     "Communication with the engine control module (ECM) Verlog-code missing"
+    ],
+    "0x33": [
+     "IMM-325",
+     "Faulty comms with coded starter module",
+     "Communication with CSM Faulty communication"
+    ],
+    "0x55": [
+     "IMM-326",
+     "Reply signal from engine control module missing",
+     "Communication with the engine control module (ECM) Signal missing"
+    ],
+    "0xF7": [
+     "IMM-333",
+     "Control circuit to VGLA, fault in VGLA or LED circuit (SV40)"
+    ],
+    "0x30": [
+     "IMM-334",
+     "Control circuit to Indicator Lamp, fault circuit",
+     "Control circuit indicator lamp Faulty signal"
+    ],
+    "0x31": [
+     "IMM-335",
+     "Starter Motor Control circuit, fault in circuit",
+     "Control circuit starter relay Signal too high"
+    ],
+    "0x07": [
+     "IMM-336",
+     "Control circuit to VGLA, fault in VGLA or LED circuit (SV40)",
+     "Communication with VGLA module Faulty signal"
+    ],
+    "0xF8": [
+     "IMM-336",
+     "Control circuit to VGLA, fault in VGLA or LED circuit (SV40)"
+    ]
+   },
+   "updated_texts": true
+  },
+  "ABS:850-ABS": {
+   "id": "ABS:850-ABS",
+   "prefix": "ABS",
+   "select_key": "850-ABS",
+   "select_addr": [],
+   "codes": {
+    "0x64": [
+     "ABS-141",
+     "EBD Pressure Switch Signal, Fault in Circuit"
+    ],
+    "0x65": [
+     "ABS-142",
+     "Brake light switch, faulty signal"
+    ],
+    "0x67": [
+     "ABS-143",
+     "Vehicle speed signal, fault in circuit"
+    ],
+    "0x66": [
+     "ABS-144",
+     "Front wheel brake discs temp too high"
+    ],
+    "0x13": [
+     "ABS-211",
+     "Left Front wheel sensor signal, wrong wheel speed"
+    ],
+    "0x23": [
+     "ABS-212",
+     "Right Front wheel sensor signal, wrong wheel speed"
+    ],
+    "0x33": [
+     "ABS-213",
+     "Left Rear wheel sensor signal, wrong wheel speed"
+    ],
+    "0x43": [
+     "ABS-214",
+     "Right Rear wheel sensor signal, wrong wheel speed"
+    ],
+    "0x14": [
+     "ABS-221",
+     "Left Front wheel sensor signal, ABS control too long"
+    ],
+    "0x24": [
+     "ABS-222",
+     "Right Front wheel sensor signal, ABS control too long"
+    ],
+    "0x34": [
+     "ABS-223",
+     "Left Rear wheel sensor signal, ABS control too long"
+    ],
+    "0x44": [
+     "ABS-224",
+     "Right Rear wheel sensor signal, ABS control too long"
+    ],
+    "0x10": [
+     "ABS-311",
+     "Left Front wheel sensor signal, fault in circuit"
+    ],
+    "0x20": [
+     "ABS-312",
+     "Right Front wheel sensor signal, fault in circuit"
+    ],
+    "0x30": [
+     "ABS-313",
+     "Left Rear wheel sensor signal, fault in circuit"
+    ],
+    "0x40": [
+     "ABS-314",
+     "Right Rear wheel sensor signal, fault in circuit"
+    ],
+    "0x11": [
+     "ABS-321",
+     "Left Front wheel sensor signal, extrapolation"
+    ],
+    "0x21": [
+     "ABS-322",
+     "Right Front wheel sensor signal, extrapolation"
+    ],
+    "0x31": [
+     "ABS-323",
+     "Left Rear wheel sensor signal, extrapolation"
+    ],
+    "0x41": [
+     "ABS-324",
+     "Right Rear wheel sensor signal, extrapolation"
+    ],
+    "0x50": [
+     "ABS-411",
+     "Left Front inlet valve, fault in valve coil circuit"
+    ],
+    "0x54": [
+     "ABS-412",
+     "Left Front outlet valve, fault in valve coil circuit"
+    ],
+    "0x51": [
+     "ABS-413",
+     "Right Front inlet valve, fault in valve coil circuit"
+    ],
+    "0x55": [
+     "ABS-414",
+     "Right Front outlet valve, fault in valve coil circuit"
+    ],
+    "0x52": [
+     "ABS-421",
+     "Rear inlet valve, fault in valve coil circuit"
+    ],
+    "0x56": [
+     "ABS-422",
+     "Rear outlet valve, fault in valve coil circuit"
+    ],
+    "0x60": [
+     "ABS-423",
+     "TRACS Inlet valve, fault in valve coil circuit"
+    ],
+    "0x72": [
+     "ABS-431",
+     "Control Module General Hardware fault"
+    ],
+    "0x75": [
+     "ABS-432",
+     "Control Module General Interference fault"
+    ],
+    "0x77": [
+     "ABS-433",
+     "Battery volts too high"
+    ],
+    "0x80": [
+     "ABS-441",
+     "Main relay in control module"
+    ],
+    "0x82": [
+     "ABS-442",
+     "Control module leakage current"
+    ],
+    "0x70": [
+     "ABS-443",
+     "Pump Motor Electrical or Mechanical fault"
+    ],
+    "0x81": [
+     "ABS-444",
+     "Control Module internal valve reference volts"
+    ],
+    "0x83": [
+     "ABS-445",
+     "Control Module General Valve fault"
+    ]
+   }
+  },
+  "CI:850--CI": {
+   "id": "CI:850--CI",
+   "prefix": "CI",
+   "select_key": "850--CI",
+   "select_addr": [],
+   "codes": {
+    "0x04": [
+     "CI-112",
+     "Fuel Level Sensor Signal too low"
+    ],
+    "0x05": [
+     "CI-113",
+     "Fuel Level Sensor Signal too high"
+    ],
+    "0x03": [
+     "CI-114",
+     "Fuel Level Sensor Signal faulty"
+    ],
+    "0x06": [
+     "CI-121",
+     "Engine Coolant Temp Signal Faulty"
+    ],
+    "0x07": [
+     "CI-123",
+     "48 pulse vehicle speed signal too high"
+    ],
+    "0x0C": [
+     "CI-124",
+     "Engine speed RPM signal faulty"
+    ],
+    "0x09": [
+     "CI-131",
+     "12 pulse vehicle speed signal too high"
+    ],
+    "0x0B": [
+     "CI-132",
+     "Engine speed RPM signal missing"
+    ],
+    "0x0E": [
+     "CI-133",
+     "Fuel tank signal to trip comp too high"
+    ],
+    "0x0A": [
+     "CI-141",
+     "12 pulse vehicle speed signal too low"
+    ],
+    "0x08": [
+     "CI-143",
+     "48 pulse vehicle speed signal too low"
+    ],
+    "0x0D": [
+     "CI-211",
+     "D+ signal to low"
+    ],
+    "0x02": [
+     "CI-221",
+     "Vehicle speed signal missing"
+    ],
+    "0x01": [
+     "CI-222",
+     "Vehicle speed signal faulty"
+    ],
+    "0x10": [
+     "CI-231",
+     "Control Module Internal Fault"
+    ],
+    "0x0F": [
+     "CI-142",
+     "Outside Temperature Signal Missing"
+    ],
+    "0x11": [
+     "CI-174",
+     "Fuel Consumption Signal Missing"
+    ]
+   }
+  },
+  "SRS:58": {
+   "id": "SRS:58",
+   "prefix": "SRS",
+   "select_key": null,
+   "select_addr": [
+    88
+   ],
+   "codes": {
+    "0x01": [
+     "SRS-112",
+     "Internal fault in Module"
+    ],
+    "0xC7": [
+     "SRS-114",
+     "Module Control faulty signal"
+    ],
+    "0x52": [
+     "SRS-127",
+     "SRS Warning Lamp OC, or SC to Ground"
+    ],
+    "0x65": [
+     "SRS-127",
+     "SRS Warning Lamp OC, or SC to Ground"
+    ],
+    "0x53": [
+     "SRS-128",
+     "SRS Warning Lamp SC to Supply"
+    ],
+    "0x66": [
+     "SRS-128",
+     "SRS Warning Lamp SC to Supply"
+    ],
+    "0x67": [
+     "SRS-129",
+     "Battery voltage signal too low"
+    ],
+    "0x88": [
+     "SRS-210",
+     "Drivers Air Bag Signal faulty"
+    ],
+    "0x02": [
+     "SRS-211",
+     "Drivers Air Bag, SC or Cap too High"
+    ],
+    "0x78": [
+     "SRS-211",
+     "Drivers Air Bag, Faulty signal"
+    ],
+    "0x03": [
+     "SRS-212",
+     "Drivers Air Bag, OC or Cap too Low"
+    ],
+    "0x79": [
+     "SRS-212",
+     "Drivers Air Bag signal missing"
+    ],
+    "0x04": [
+     "SRS-213",
+     "Drivers Air Bag SC, to Ground"
+    ],
+    "0x68": [
+     "SRS-213",
+     "Drivers Air Bag, signal too low"
+    ],
+    "0x05": [
+     "SRS-214",
+     "Drivers Air Bag, SC to Supply"
+    ],
+    "0x69": [
+     "SRS-214",
+     "Drivers Air Bag, signal too high"
+    ],
+    "0x8B": [
+     "SRS-220",
+     "Pass Air Bag signal faulty"
+    ],
+    "0x06": [
+     "SRS-221",
+     "Pass Air Bag, SC or Cap too High"
+    ],
+    "0x7E": [
+     "SRS-221",
+     "Pass Air Bag, faulty signal"
+    ],
+    "0x07": [
+     "SRS-222",
+     "Pass Air Bag, OC or Cap too Low"
+    ],
+    "0x7F": [
+     "SRS-222",
+     "Pass Air Bag signal missing"
+    ],
+    "0x08": [
+     "SRS-223",
+     "Pass Air Bag, SC to Ground"
+    ],
+    "0x6E": [
+     "SRS-223",
+     "Pass Air Bag signal too low"
+    ],
+    "0x09": [
+     "SRS-224",
+     "Pass Air Bag SC to Supply"
+    ],
+    "0x6F": [
+     "SRS-224",
+     "Pass Air Bag, signal too high"
+    ],
+    "0x89": [
+     "SRS-230",
+     "Left Seat Belt Tensioner signal fault"
+    ],
+    "0x0A": [
+     "SRS-231",
+     "Left Seat Belt Tensioner SC or Cap too High"
+    ],
+    "0x7A": [
+     "SRS-231",
+     "Left Seat Belt Tensioner faulty signal"
+    ],
+    "0x0B": [
+     "SRS-232",
+     "Left Seat Belt Tensioner OC or Cap too Low"
+    ],
+    "0x7B": [
+     "SRS-232",
+     "Left Seat Belt Tensioner signal missing"
+    ],
+    "0x0C": [
+     "SRS-233",
+     "Left Seat Belt Tensioner SC to Ground"
+    ],
+    "0x6A": [
+     "SRS-233",
+     "Left Seat Belt Tensioner signal too low"
+    ],
+    "0x0D": [
+     "SRS-234",
+     "Left Seat Belt Tensioner SC to Supply"
+    ],
+    "0x6B": [
+     "SRS-234",
+     "Left Seat Belt Tensioner signal too high"
+    ],
+    "0x8A": [
+     "SRS-240",
+     "Right Seat Belt Tensioner signal fault"
+    ],
+    "0x0E": [
+     "SRS-241",
+     "Right Seat Belt Tensioner SC or Cap too High"
+    ],
+    "0x7C": [
+     "SRS-241",
+     "Right Seat Belt Tensioner signal fault"
+    ],
+    "0x0F": [
+     "SRS-242",
+     "Right Seat Belt Tensioner OC or Cap too Low"
+    ],
+    "0x7D": [
+     "SRS-242",
+     "Right Seat Belt Tensioner signal missing"
+    ],
+    "0x10": [
+     "SRS-243",
+     "Right Seat Belt Tensioner SC to Ground"
+    ],
+    "0x6C": [
+     "SRS-243",
+     "Right Seat Belt Tensioner signal to low"
+    ],
+    "0x11": [
+     "SRS-244",
+     "Right Seat Belt Tensioner SC to Supply"
+    ],
+    "0x6D": [
+     "SRS-244",
+     "Right Seat Belt Tensioner signal too high"
+    ],
+    "0x8C": [
+     "SRS-310",
+     "Left Rear Seat Belt Tensioner signal fault"
+    ],
+    "0x80": [
+     "SRS-311",
+     "Left Rear Seat Belt Tensioner signal fault"
+    ],
+    "0x81": [
+     "SRS-312",
+     "Left Rear Seat Belt Tensioner signal missing"
+    ],
+    "0x70": [
+     "SRS-313",
+     "Left Rear Seat Belt Tensioner signal to low"
+    ],
+    "0x71": [
+     "SRS-314",
+     "Left Rear Seat Belt Tensioner signal to high"
+    ],
+    "0x8D": [
+     "SRS-320",
+     "Right Rear Seat Belt Tensioner signal fault"
+    ],
+    "0x82": [
+     "SRS-321",
+     "Right Rear Seat Belt Tensioner signal fault"
+    ],
+    "0x83": [
+     "SRS-322",
+     "Right Rear Seat Belt Tensioner signal missing"
+    ],
+    "0x72": [
+     "SRS-323",
+     "Right Rear Seat Belt Tensioner signal to low"
+    ],
+    "0x73": [
+     "SRS-324",
+     "Right Rear Seat Belt Tensioner signal to high"
+    ]
+   }
+  },
+  "AT:6E": {
+   "id": "AT:6E",
+   "prefix": "AT",
+   "select_key": null,
+   "select_addr": [
+    110
+   ],
+   "codes": {
+    "0x35": [
+     "AT-114",
+     "Mode Selector Switch Signal too high"
+    ],
+    "0x36": [
+     "AT-121",
+     "Shift Solenoid S1, Short Circuit to ground"
+    ],
+    "0x37": [
+     "AT-122",
+     "Shift Solenoid S1, fault in solenoid circuit"
+    ],
+    "0x38": [
+     "AT-123",
+     "Line pressure solenoid STH, SC to supply"
+    ],
+    "0x39": [
+     "AT-124",
+     "Mode selector switch, signal too low"
+    ],
+    "0x3A": [
+     "AT-131",
+     "Line pressure sol STH, SC to ground or OC"
+    ],
+    "0x3B": [
+     "AT-132",
+     "Control Module amp STH, Short Circuit"
+    ],
+    "0x3C": [
+     "AT-134",
+     "Incorrect load signal"
+    ],
+    "0x3D": [
+     "AT-141",
+     "Oil Temp Sensor signal too low"
+    ],
+    "0x3E": [
+     "AT-142",
+     "Oil Temp Sensor signal too high"
+    ],
+    "0x3F": [
+     "AT-143",
+     "Kickdown switch, signal too low"
+    ],
+    "0x40": [
+     "AT-213",
+     "Throttle Position Signal too high"
+    ],
+    "0x41": [
+     "AT-221",
+     "Shift solenoid S2, SC to ground"
+    ],
+    "0x42": [
+     "AT-222",
+     "Shift solenoid S2, fault in circuit"
+    ],
+    "0x43": [
+     "AT-223",
+     "Throttle Position signal too low"
+    ],
+    "0x44": [
+     "AT-232",
+     "Vehicle Speed signal absent"
+    ],
+    "0x45": [
+     "AT-235",
+     "Oil Temperature too high"
+    ],
+    "0x46": [
+     "AT-245",
+     "OC/SC to ground in torque limiting circuit"
+    ],
+    "0x47": [
+     "AT-311",
+     "Transmission RPM signal absent"
+    ],
+    "0x48": [
+     "AT-313",
+     "Gear position sensor faulty signal"
+    ],
+    "0x49": [
+     "AT-321",
+     "Gear 1, incorrect ratio"
+    ],
+    "0x4A": [
+     "AT-322",
+     "Gear 2, incorrect ratio"
+    ],
+    "0x4B": [
+     "AT-323",
+     "Gear 3, incorrect ratio"
+    ],
+    "0x4C": [
+     "AT-324",
+     "Gear 4, incorrect ratio"
+    ],
+    "0x4D": [
+     "AT-331",
+     "Lock-up sol SL, SC to supply"
+    ],
+    "0x4E": [
+     "AT-332",
+     "Lock-up sol SL, open circuit"
+    ],
+    "0x4F": [
+     "AT-333",
+     "Lock-up sol SL, SC to ground"
+    ],
+    "0x50": [
+     "AT-411",
+     "Control Module EEPROM fault"
+    ],
+    "0x51": [
+     "AT-421",
+     "Batt Volts too low"
+    ]
+   }
+  },
+  "PS:2E_2F": {
+   "id": "PS:2E_2F",
+   "prefix": "PS",
+   "select_key": null,
+   "select_addr": [
+    46,
+    47
+   ],
+   "codes": {
+    "0x01": [
+     "PS-112",
+     "Legroom Motor 1 Pot signal too high",
+     "Front-rear adjustment, motor 1 Potentiometer signal too high"
+    ],
+    "0x02": [
+     "PS-121",
+     "Backrest Motor 2 Pot signal too high",
+     "Backrest, motor 2 Potentiometer signal too high"
+    ],
+    "0x03": [
+     "PS-122",
+     "Seat Rear edge Motor 3 Pot signal too high",
+     "Seat rear edge, motor 3 Potentiometer signal too high"
+    ],
+    "0x04": [
+     "PS-211",
+     "Seat front edge motor 4 Pot signal too high",
+     "Seat front edge, motor 4 Potentiometer signal too high"
+    ],
+    "0x05": [
+     "PS-212",
+     "Legroom Motor 1 Pot signal too low",
+     "Front-rear adjustment, motor 1 Potentiometer signal too low"
+    ],
+    "0x06": [
+     "PS-222",
+     "Backrest Motor 2 Pot signal too low",
+     "Backrest, motor 2 Potentiometer signal too low"
+    ],
+    "0x07": [
+     "PS-223",
+     "Seat Rear edge Motor 3 Pot signal too low",
+     "Seat rear edge, motor 3 Potentiometer signal too low"
+    ],
+    "0x08": [
+     "PS-312",
+     "Seat front edge motor 4 Pot signal too low",
+     "Seat front edge, motor 4 Potentiometer signal too low"
+    ],
+    "0x09": [
+     "PS-123",
+     "Legroom Motor 1 Movement when not permitted",
+     "Front-rear adjustment, motor 1 Movement when not permitted"
+    ],
+    "0x0A": [
+     "PS-131",
+     "Backrest Motor 2 Movement when not permitted",
+     "Backrest, motor 2 Movement when not permitted"
+    ],
+    "0x0B": [
+     "PS-132",
+     "Seat Rear edge Motor 3 Movement when not permitted",
+     "Seat rear edge, motor 3 Movement when not permitted"
+    ],
+    "0x0C": [
+     "PS-133",
+     "Seat front edge motor 4 Movement when not permitted",
+     "Seat front edge, motor 4 Movement when not permitted"
+    ],
+    "0x0D": [
+     "PS-143",
+     "Legroom Motor 1 Moves in wrong direction",
+     "Front-rear adjustment, motor 1 Moves in wrong direction"
+    ],
+    "0x0E": [
+     "PS-144",
+     "Backrest Motor 2 Moves in wrong direction",
+     "Backrest, motor 2 Moves in wrong direction"
+    ],
+    "0x0F": [
+     "PS-214",
+     "Seat Rear edge Motor 3 Moves in wrong direction",
+     "Seat rear edge, motor 3 Moves in wrong direction"
+    ],
+    "0x10": [
+     "PS-224",
+     "Seat front edge motor 4 Moves in wrong direction",
+     "Seat front edge, motor 4 Moves in wrong direction"
+    ],
+    "0x11": [
+     "PS-323",
+     "Memory 1, Fault in stored memory position",
+     "Memory function 1 Fault in memory position"
+    ],
+    "0x12": [
+     "PS-322",
+     "Memory 2, Fault in stored memory position",
+     "Memory function 2 Fault in memory position"
+    ],
+    "0x13": [
+     "PS-321",
+     "Memory 3, Fault in stored memory position",
+     "Memory function 3 Fault in memory position"
+    ],
+    "0x14": [
+     "PS-424",
+     "Control Panel Not Connected - Ignore this DTC!",
+     "Control panel Not connected"
+    ],
+    "0x15": [
+     "PS-421",
+     "Fault in Control Module",
+     "Fault in control module"
+    ],
+    "0x16": [
+     "PS-422",
+     "Battery Voltage too low",
+     "Battery voltage Low"
+    ],
+    "0x17": [
+     "PS-423",
+     "Control Button activated too long",
+     "Control button Activated too long"
+    ],
+    "0x18": [
+     "PS-411",
+     "Legroom motor 1 not calibrated",
+     "Front-rear adjustment, motor 1 Overheating"
+    ],
+    "0x19": [
+     "PS-412",
+     "Backrest motor 2 not calibrated",
+     "Backrest, motor 2 Overheating"
+    ],
+    "0x1A": [
+     "PS-413",
+     "Seat Rear edge motor 3 not calibrated"
+    ],
+    "0x1B": [
+     "PS-414",
+     "Seat front edge motor 4 not calibrated"
+    ],
+    "0x1C": [
+     "PS-331",
+     "Entry Position not stored"
+    ],
+    "0x1D": [
+     "PS-332",
+     "Original Position not stored"
+    ]
+   },
+   "updated_texts": true
+  },
+  "EFI:11": {
+   "id": "EFI:11",
+   "prefix": "EFI",
+   "select_key": null,
+   "select_addr": [
+    17
+   ],
+   "codes": {
+    "0x00": [
+     "EFI-131",
+     "Engine Speed (RPM) signal",
+     "Engine speed (RPM) sensor signal"
+    ],
+    "0x01": [
+     "EFI-719",
+     "Secondary Engine speed signal",
+     "Secondary engine speed signal"
+    ],
+    "0x02": [
+     "EFI-132",
+     "Battery Voltage Level",
+     "Battery voltage"
+    ],
+    "0x03": [
+     "EFI-711",
+     "Needle lift sensor signal",
+     "Needle lift sensor signal"
+    ],
+    "0x04": [
+     "EFI-732",
+     "Accelerator pedal position sensor signal",
+     "Accelerator pedal (AP) position sensor signal"
+    ],
+    "0x05": [
+     "EFI-132",
+     "Engine Coolant Temp (ECT) sensor signal"
+    ],
+    "0x06": [
+     "EFI-122",
+     "Intake air temp (IAT) sensor signal",
+     "Intake air temperature (IAT) sensor signal"
+    ],
+    "0x08": [
+     "EFI-712",
+     "Fuel temp sensor signal",
+     "Fuel temperature sensor signal"
+    ],
+    "0x09": [
+     "EFI-415",
+     "Boost pressure sensor signal",
+     "Boost pressure sensor signal"
+    ],
+    "0x0A": [
+     "EFI-112",
+     "Barometric Pressure Signal",
+     "Fault in control module"
+    ],
+    "0x0B": [
+     "EFI-121",
+     "Mass air flow (MAF) sensor signal",
+     "Mass air flow (MAF) sensor signal"
+    ],
+    "0x0C": [
+     "EFI-743",
+     "Cruise Control switch signal",
+     "Cruise control switch signal"
+    ],
+    "0x0D": [
+     "EFI-112",
+     "ECM reference voltage",
+     "Fault in control module"
+    ],
+    "0x0F": [
+     "EFI-112",
+     "ECM fault",
+     "Fault in control module"
+    ],
+    "0x10": [
+     "EFI-311",
+     "Speedometer Signal",
+     "Vehicle speed signal (VSS)"
+    ],
+    "0x11": [
+     "EFI-235",
+     "EGR controller signal",
+     "EGR controller"
+    ],
+    "0x12": [
+     "EFI-242",
+     "Turbocharger control valve signal",
+     "Turbocharger (TC) control valve signal"
+    ],
+    "0x14": [
+     "EFI-515",
+     "Engine cooling fan high speed signal",
+     "Engine cooling fan (FC) high-speed"
+    ],
+    "0x19": [
+     "EFI-713",
+     "Injection Timing Valve signal",
+     "Injection timing valve signal"
+    ],
+    "0x1A": [
+     "EFI-323",
+     "Malfunction indicator lamp signal",
+     "Malfunction indicator lamp (MIL)"
+    ],
+    "0x1B": [
+     "EFI-721",
+     "Glowplug indicator lamp signal",
+     "Glowplug indicator lamp signal"
+    ],
+    "0x20": [
+     "EFI-714",
+     "Fuel shut-off valve signal",
+     "Fuel shut-off valve signal"
+    ],
+    "0x21": [
+     "EFI-730",
+     "Brake pedal switch signal",
+     "Brake pedal switch signal"
+    ],
+    "0x22": [
+     "EFI-731",
+     "Clutch switch signal",
+     "Clutch pedal switch signal"
+    ],
+    "0x23": [
+     "EFI-724",
+     "Engine coolant heater relay signal",
+     "Engine coolant heater relay signal"
+    ],
+    "0x24": [
+     "EFI-112",
+     "ECM memory",
+     "Control module, memory fault"
+    ],
+    "0x26": [
+     "EFI-514",
+     "Engine cooling fan low speed signal",
+     "Engine cooling fan (FC) low-speed"
+    ],
+    "0x2A": [
+     "EFI-725",
+     "Main relay signal",
+     "Main relay signal"
+    ],
+    "0x2B": [
+     "EFI-715",
+     "Fuel regulation",
+     "Fuel regulation"
+    ],
+    "0x2D": [
+     "EFI-726",
+     "15-supply to control module",
+     "15-supply to control module"
+    ],
+    "0x2E": [
+     "EFI-716",
+     "Quantity of fuel signal",
+     "Fuel regulator signal"
+    ],
+    "0x2F": [
+     "EFI-718",
+     "Ignition timing control",
+     "Control, injection timing"
+    ],
+    "0x30": [
+     "EFI-335",
+     "Control module communication",
+     "Control module communication"
+    ],
+    "0x31": [
+     "EFI-353",
+     "Communication with immobilizer",
+     "Communication problems, immobilizer"
+    ],
+    "0x32": [
+     "EFI-742",
+     "Control module communication",
+     "Control module communication"
+    ],
+    "0x33": [
+     "EFI-225",
+     "Air conditioning pressure sensor signal",
+     "A/C pressure sensor signal"
+    ],
+    "0x34": [
+     "EFI-717",
+     "Fuel regulator position sensor signal",
+     "Position control sensor quantity of fuel signal"
+    ],
+    "0x36": [
+     "EFI-732",
+     "Accelerator pedal position sensor signal",
+     "Accelerator pedal (AP) position sensor signal"
+    ]
+   },
+   "updated_texts": true
+  },
+  "EFI:MOT-4.4": {
+   "id": "EFI:MOT-4.4",
+   "prefix": "EFI",
+   "select_key": "MOT-4.4",
+   "select_addr": [],
+   "codes": {
+    "0x00": [
+     "EFI-111",
+     "No DTC's logged."
+    ],
+    "0x67": [
+     "EFI-112",
+     "Memory Fault (ROM) In Engine Control Module (TCM) ."
+    ],
+    "0x7A": [
+     "EFI-112",
+     "Fault In engine control module (ECM) NTC switch."
+    ],
+    "0xED": [
+     "EFI-112",
+     "Fault In engine control module (ECM) NTC switch."
+    ],
+    "0x7F": [
+     "EFI-112",
+     "Fault In Engine control module (ECM Temperature)."
+    ],
+    "0xDE": [
+     "EFI-112",
+     "Fault In Engine control module (Knock Control)."
+    ],
+    "0x96": [
+     "EFI-115",
+     "Injector 1"
+    ],
+    "0x73": [
+     "EFI-121",
+     "Mass air flow (MAF) sensor signal"
+    ],
+    "0x7B": [
+     "EFI-123",
+     "Engine coolant temperature (ECT) sensor"
+    ],
+    "0x97": [
+     "EFI-125",
+     "Injector 2"
+    ],
+    "0x6E": [
+     "EFI-131",
+     "Engine speed (RPM) sensor signal missing."
+    ],
+    "0x6B": [
+     "EFI-132",
+     "Battery voltage"
+    ],
+    "0x98": [
+     "EFI-135",
+     "Injector 3"
+    ],
+    "0xD2": [
+     "EFI-143",
+     "Front knock sensor (KS) signal"
+    ],
+    "0x99": [
+     "EFI-145",
+     "Injector 4"
+    ],
+    "0x0C": [
+     "EFI-153",
+     "Rear heated oxygen sensor (H02S) signal."
+    ],
+    "0x9A": [
+     "EFI-155",
+     "Injector 5"
+    ],
+    "0x9B": [
+     "EFI-165",
+     "Injector 6"
+    ],
+    "0x18": [
+     "EFI-211",
+     "CO-Potentiometer"
+    ],
+    "0x0A": [
+     "EFI-212",
+     "Front heated oxygen sensor (H02S) signal"
+    ],
+    "0x6F": [
+     "EFI-214",
+     "Engine speed (RPM) sensor signal sporadic"
+    ],
+    "0xA8": [
+     "EFI-223",
+     "Idle air control (IAC) valve opening signal"
+    ],
+    "0x82": [
+     "EFI-225",
+     "Air conditioning (A/C) pressure sensor signal"
+    ],
+    "0x1A": [
+     "EFI-231",
+     "Long term fuel trim part load"
+    ],
+    "0x1B": [
+     "EFI-232",
+     "Long term fuel trim idling"
+    ],
+    "0xAA": [
+     "EFI-233",
+     "Adaptive idle air trim"
+    ],
+    "0xE1": [
+     "EFI-233",
+     "Long term idle air trim"
+    ],
+    "0xAB": [
+     "EFI-242",
+     "Turbocharger control valve signal"
+    ],
+    "0xA9": [
+     "EFI-245",
+     "Idle air control(IAC) valve closing signal"
+    ],
+    "0x7C": [
+     "EFI-251",
+     "Outside temperature sensor signal"
+    ],
+    "0x78": [
+     "EFI-311",
+     "Speedometer signal"
+    ],
+    "0x70": [
+     "EFI-314",
+     "Camshaft position sensor signal"
+    ],
+    "0x5D": [
+     "EFI-315",
+     "Canister purge (CP) valve leakage"
+    ],
+    "0x6D": [
+     "EFI-315",
+     "Canister purge (CP) valve leakage"
+    ],
+    "0xA4": [
+     "EFI-335",
+     "Wiring fault between AW 5O/42 and Motronic 4.4"
+    ],
+    "0x13": [
+     "EFI-343",
+     "Fuel Pump Relay"
+    ],
+    "0x79": [
+     "EFI-355",
+     "Mass air flow (MAF) sensor, faulty signal"
+    ],
+    "0x75": [
+     "EFI-411",
+     "Throttle position (TP) sensor signal"
+    ],
+    "0xE6": [
+     "EFI-414",
+     "Boost Pressure Control"
+    ],
+    "0xE5": [
+     "EFI-416",
+     "Boost pressure reduction from TCM"
+    ],
+    "0x77": [
+     "EFI-422",
+     "Atmospheric pressure sensor signal"
+    ],
+    "0x11": [
+     "EFI-425",
+     "Rear heated oxygen sensor (H02S) control"
+    ],
+    "0x80": [
+     "EFI-432",
+     "Temperature warning >100 degrees C"
+    ],
+    "0xEE": [
+     "EFI-432",
+     "Temperature warning >100 degrees C"
+    ],
+    "0xD3": [
+     "EFI-433",
+     "Rear knock sensor (KS)signal"
+    ],
+    "0x0F": [
+     "EFI-435",
+     "Front heated oxygen sensor (H02S) slow response"
+    ],
+    "0x10": [
+     "EFI-436",
+     "Rear heated oxygen sensor (H02S) compensation"
+    ],
+    "0x50": [
+     "EFI-442",
+     "Pulsed secondary air Injection system flow fault"
+    ],
+    "0x28": [
+     "EFI-443",
+     "Three-way catalytic converter (TWC) efficiency"
+    ],
+    "0x4D": [
+     "EFI-444",
+     "Accelerometer signal"
+    ],
+    "0x54": [
+     "EFI-445",
+     "Pulsed secondary air injection system pump signal"
+    ],
+    "0x53": [
+     "EFI-446",
+     "Pulsed secondary air injection system valve leakage"
+    ],
+    "0x55": [
+     "EFI-447",
+     "Pulsed sec air Injection system solenoid valve signal"
+    ],
+    "0x51": [
+     "EFI-448",
+     "Pulsed secondary air injection system pump flow fault"
+    ],
+    "0x32": [
+     "EFI-45I",
+     "Misfire emission level cylinder 1"
+    ],
+    "0x33": [
+     "EFI-452",
+     "Misfire emission level cylinder 2"
+    ],
+    "0x34": [
+     "EFI-453",
+     "Misfire emission level cylinder 3"
+    ],
+    "0x35": [
+     "EFI-454",
+     "Misfire emission level cylinder 4"
+    ],
+    "0x36": [
+     "EFI-455",
+     "Misfire emission level cylinder 5"
+    ],
+    "0x37": [
+     "EFI-455",
+     "Misfire emission level cylinder 6"
+    ],
+    "0x81": [
+     "EFI-513",
+     "Temperature warning +110 degrees C"
+    ],
+    "0xEF": [
+     "EFI-513",
+     "Temperature warning +110 degrees C"
+    ],
+    "0xFD": [
+     "EFI-514",
+     "Engine cooling fan (FC) Low speed signal"
+    ],
+    "0x0D": [
+     "EFI-521",
+     "Front heated oxygen sensor (HO2S) preheating"
+    ],
+    "0x0E": [
+     "EFI-522",
+     "Rear heated oxygen sensor (HO2S) preheating"
+    ],
+    "0xB4": [
+     "EFI-531",
+     "Ignition discharge module (IDM) group A"
+    ],
+    "0xB5": [
+     "EFI-532",
+     "Ignition discharge module (IDM) group B"
+    ],
+    "0xB6": [
+     "EFI-533",
+     "Ignition discharge module (IDM) group C"
+    ],
+    "0xB7": [
+     "EFI-534",
+     "Ignition discharge module (IDM) group D"
+    ],
+    "0xB8": [
+     "EFI-536",
+     "Ignition discharge module (IDM) group E"
+    ],
+    "0xB9": [
+     "EFI-537",
+     "Ignition discharge module (IDM) group F"
+    ],
+    "0x62": [
+     "EFI-541",
+     "Canister purge (CP) valve signal"
+    ],
+    "0x3E": [
+     "EFI-543",
+     "Misfire emission level from at least one cylinder"
+    ],
+    "0x4B": [
+     "EFI-545",
+     "Misfire with TWC damage from at least one cylinder"
+    ],
+    "0x3F": [
+     "EFI-551",
+     "Misfire with catalytic converter damage cylinder 1"
+    ],
+    "0x40": [
+     "EFI-552",
+     "Misfire with catalytic converter damage cylinder 2"
+    ],
+    "0x41": [
+     "EFI-553",
+     "Misfire with catalytic converter damage cylinder 3"
+    ],
+    "0x42": [
+     "EFI-554",
+     "Misfire with catalytic converter damage cylinder 4"
+    ],
+    "0x43": [
+     "EFI-555",
+     "Misfire with catalytic converter damage cylinder 5"
+    ],
+    "0x44": [
+     "EFI-556",
+     "Misfire with catalytic converter damage cylinder 6"
+    ],
+    "0x5E": [
+     "EFI-611",
+     "Fuel tank system large leak"
+    ],
+    "0x61": [
+     "EFI-612",
+     "Fuel tank system small leak"
+    ],
+    "0x5F": [
+     "EFI-614",
+     "EVAP canister shut off valve flow fault"
+    ],
+    "0x60": [
+     "EFI-616",
+     "EVAP canister shut off valve signal"
+    ],
+    "0x63": [
+     "EFI-621",
+     "Fuel tank pressure sensor signal"
+    ],
+    "0xFE": [
+     "EFI-621",
+     "Fuel tank pressure sensor signal"
+    ],
+    "0x1D": [
+     "EFI-666",
+     "DTC in transmission CM"
+    ]
+   }
+  },
+  "ECC:SV70ECC": {
+   "id": "ECC:SV70ECC",
+   "prefix": "ECC",
+   "select_key": "SV70ECC",
+   "select_addr": [],
+   "codes": {
+    "0x20": [
+     "ECC-121",
+     "Outside temperature sensor signal low",
+     "Outside temperature sensor Signal too low"
+    ],
+    "0x21": [
+     "ECC-122",
+     "Outside temperature sensor signal high",
+     "Outside temperature sensor Signal too high"
+    ],
+    "0x22": [
+     "ECC-123",
+     "Passenger compartment temperature sensor signal low",
+     "Passenger compartment temperature sensor Signal too low"
+    ],
+    "0x23": [
+     "ECC-124",
+     "Passenger compartment temperature sensor signal high",
+     "Passenger compartment temperature sensor Signal too high"
+    ],
+    "0x24": [
+     "ECC-135",
+     "Engine coolant temperature (ECT) signal missing",
+     "Engine coolant temperature (ECT) Signal missing"
+    ],
+    "0x33": [
+     "ECC-141",
+     "Passenger compartment temp selector left, signal faulty",
+     "Passenger compartment heater selector, left Faulty signal"
+    ],
+    "0x32": [
+     "ECC-143",
+     "Passenger compartment temp selector right, signal faulty",
+     "Passenger compartment heater selector, right Faulty signal"
+    ],
+    "0x25": [
+     "ECC-211",
+     "Driver's side temp damper motor position sensor signal high",
+     "Damper motor position sensor temperature, driver Signal too high"
+    ],
+    "0x26": [
+     "ECC-212",
+     "Driver's side temp damper motor position sensor signal low",
+     "Damper motor position sensor temperature, driver Signal too low"
+    ],
+    "0x0A": [
+     "ECC-221",
+     "Air distribution damper motor position sensor signal low",
+     "Damper motor position sensor air distribution Signal too low"
+    ],
+    "0x0B": [
+     "ECC-222",
+     "Air distribution damper motor position sensor signal high",
+     "Damper motor position sensor air distribution Signal too high"
+    ],
+    "0x27": [
+     "ECC-231",
+     "Pass side temp damper motor position sensor signal high",
+     "Damper motor position sensor temperature, passenger Signal too high"
+    ],
+    "0x28": [
+     "ECC-232",
+     "Pass side temp damper motor position sensor signal low",
+     "Damper motor position sensor temperature, passenger Signal too low"
+    ],
+    "0x29": [
+     "ECC-235",
+     "Recirculation damper motor position sensor signal high",
+     "Damper motor position sensor, recirc Signal too high"
+    ],
+    "0x2A": [
+     "ECC-236",
+     "Recirculation damper motor position sensor signal low",
+     "Damper motor position sensor, recirc Signal too low"
+    ],
+    "0x2B": [
+     "ECC-311",
+     "Driver's side temp damper motor, OC or SC in pot circuit",
+     "Damper motor temperature driver Faulty signal"
+    ],
+    "0x2F": [
+     "ECC-312",
+     "Driver's side temp damper motor, no position change",
+     "Damper motor temperature driver Active too long"
+    ],
+    "0x2C": [
+     "ECC-313",
+     "Passenger side temp damper motor, OC or SC in pot ciruit",
+     "Damper motor temperature passenger Faulty signal"
+    ],
+    "0x30": [
+     "ECC-314",
+     "Passenger side temp damper motor, no position change",
+     "Damper motor temperature passenger Active too long"
+    ],
+    "0x2E": [
+     "ECC-315",
+     "Recirculation damper motor, OC or SC in pot circuit",
+     "Recirculation damper motor Faulty signal"
+    ],
+    "0x31": [
+     "ECC-316",
+     "Recirculation damper motor, no position change",
+     "Recirculation damper motor Active too long"
+    ],
+    "0x2D": [
+     "ECC-317",
+     "Air distribution damper motor, OC or SC in pot circuit",
+     "Damper motor distribution Faulty signal"
+    ],
+    "0x13": [
+     "ECC-322",
+     "Air distribution damper motor, no position change",
+     "Air distribution damper motor Active too long"
+    ],
+    "0x38": [
+     "ECC-411",
+     "Blower fan motor power unit, faulty signal",
+     "Power unit blower fan motor Faulty signal"
+    ],
+    "0x35": [
+     "ECC-412",
+     "Fan motor pass comp temp sensor, Signal too low",
+     "Fan motor passenger compartment temperature sensor Signal too low"
+    ],
+    "0x36": [
+     "ECC-413",
+     "Fan motor pass comp temp sensor, Signal too high",
+     "Fan motor passenger compartment temperature sensor Signal too high"
+    ],
+    "0x37": [
+     "ECC-414",
+     "Fan motor pass comp temp sensor, faulty signal",
+     "Fan motor passenger compartment temperature sensor Faulty signal"
+    ],
+    "0x3A": [
+     "ECC-420",
+     "ECC control module, internal fault in memory circuits",
+     "Control module Internal fault"
+    ],
+    "0x3B": [
+     "ECC-421",
+     "ECC control module, internal fault in memory ROM circuits",
+     "Control module Internal fault"
+    ],
+    "0x3C": [
+     "ECC-422",
+     "Self-adjustment damper motors, Drivers temp failed",
+     "Damper motor self-adjustment, driver Faulty"
+    ],
+    "0x3D": [
+     "ECC-423",
+     "Self-adjustment damper motors, Passenger temp failed",
+     "Damper motor self-adjustment temperature, passenger Faulty"
+    ],
+    "0x3E": [
+     "ECC-424",
+     "Self-adjustment damper motors, Air distribution failed",
+     "Damper motor self-adjustment air distribution Faulty"
+    ],
+    "0x3F": [
+     "ECC-425",
+     "Self-adjustment damper motors, Recirculation failed",
+     "Damper motor self-adjustment recirculation Faulty"
+    ],
+    "0x34": [
+     "ECC-431",
+     "Blower fan switch, signal too high",
+     "Blower fan switch Signal too high"
+    ],
+    "0x1A": [
+     "ECC-432",
+     "Blower fan switch, signal too low",
+     "Blower fan switch Signal too low"
+    ],
+    "0x1B": [
+     "ECC-433",
+     "Blower fan motor, Current too high",
+     "Fan motor Current too high"
+    ],
+    "0x50": [
+     "ECC-441",
+     "Program downloading, control module, Not done",
+     "Downloading program to control module Not completed"
+    ],
+    "0x51": [
+     "ECC-442",
+     "Program downloading, control module, faulty",
+     "Downloading program to control module Faulty"
+    ]
+   },
+   "updated_texts": true
+  },
+  "GLA:SV70GLA": {
+   "id": "GLA:SV70GLA",
+   "prefix": "GLA",
+   "select_key": "SV70GLA",
+   "select_addr": [],
+   "codes": {
+    "0x6D": [
+     "GLA-113",
+     "Control module, Control module, not programmed",
+     "Fault in control module Not programmed"
+    ],
+    "0x41": [
+     "GLA-114",
+     "Control module, Fault in EEPROM",
+     "Control module Fault in EPROM."
+    ],
+    "0x4A": [
+     "GLA-311",
+     "Siren, Faulty signal",
+     "Siren Faulty signal"
+    ],
+    "0x4C": [
+     "GLA-312",
+     "Siren, Internal battery fault",
+     "Siren Internal battery fault"
+    ],
+    "0x4D": [
+     "GLA-321",
+     "Siren, Fault in the power supply",
+     "Siren Fault in power supply"
+    ],
+    "0x57": [
+     "GLA-413",
+     "Right ultrasonic sensor, Signal faulty",
+     "Ultra sound sensor, right Faulty signal"
+    ],
+    "0x58": [
+     "GLA-414",
+     "Right ultrasonic sensor, Internal fault",
+     "Ultra sound sensor, right Internal fault"
+    ],
+    "0x4F": [
+     "GLA-415",
+     "Left ultrasonic sensor, Signal faulty",
+     "Ultra sound sensor, left Faulty signal"
+    ],
+    "0x51": [
+     "GLA-416",
+     "Left ultrasonic sensor, Internal fault",
+     "Ultra sound sensor, left Internal fault"
+    ],
+    "0x54": [
+     "GLA-421",
+     "Glass breakage sensor, Signal faulty, to control module",
+     "Glass breakage sensor Faulty signal"
+    ],
+    "0x55": [
+     "GLA-422",
+     "Glass breakage sensor, Signal faulty, microphone circuit",
+     "Glass breakage sensor Internal fault"
+    ],
+    "0x65": [
+     "GLA-431",
+     "Tilt sensor, Signal too low"
+    ],
+    "0x59": [
+     "GLA-432",
+     "Tilt sensor, Internal fault",
+     "Tilt sensor Internal fault"
+    ],
+    "0x5B": [
+     "GLA-441",
+     "Resistive wire, Signal too high"
+    ],
+    "0x56": [
+     "GLA-451",
+     "Movement sensor, Faulty signal",
+     "Movement sensor Faulty signal"
+    ],
+    "0x61": [
+     "GLA-452",
+     "Airing module, Signal too high",
+     "Airing module Signal too high"
+    ],
+    "0x66": [
+     "GLA-454",
+     "Immobilizer, Signal too low",
+     "Immobilizer Signal too low"
+    ],
+    "0x6E": [
+     "GLA-455",
+     "Immobilizer, VGLA code Signal faulty",
+     "IMMO-VGLA code Signal too low"
+    ],
+    "0x60": [
+     "GLA-456",
+     "SRS signal, Signal too low",
+     "SRS signal Signal too low"
+    ],
+    "0x49": [
+     "GLA-511",
+     "Drivers Door lock switch, Locking Signal too low",
+     "Control switch Signal too low"
+    ],
+    "0x42": [
+     "GLA-512",
+     "Drivers Door lock switch, Unlocking Signal too low",
+     "Control switch Signal too low"
+    ],
+    "0x43": [
+     "GLA-521",
+     "Drivers Central locking switch, Signal too low",
+     "Central locking switch Signal too low"
+    ],
+    "0x69": [
+     "GLA-522",
+     "Internal Tailgate/Trunk Control switch, Signal too low",
+     "Control switch, fuel tank filler cover Signal too low"
+    ],
+    "0x6A": [
+     "GLA-523",
+     "External tailgate/trunk lock switch, Signal too low",
+     "Control switch in tailgate Signal too low"
+    ],
+    "0x6C": [
+     "GLA-524",
+     "Fuel filler lock Switch, Signal too low",
+     "Control switch, tailgate Signal too low"
+    ],
+    "0x67": [
+     "GLA-525",
+     "Central locking switch pass door, Signal too low",
+     "Central locking switch, passenger door Signal too low"
+    ],
+    "0x52": [
+     "GLA-531",
+     "Courtesy lighting, Signal too low",
+     "Interior lighting Signal too high"
+    ],
+    "0x64": [
+     "GLA-541",
+     "Ignition switch, Signal too low",
+     "Ignition switch Signal too low"
+    ],
+    "0x62": [
+     "GLA-610",
+     "Speed signal faulty"
+    ],
+    "0x63": [
+     "GLA-441",
+     "",
+     "Glass wire Signal too high"
+    ],
+    "0x44": [
+     "GLA-526",
+     "",
+     "Central locking switch, driver door Signal too low"
+    ],
+    "0x45": [
+     "GLA-552",
+     "",
+     "Child lock switch Signal too low"
+    ],
+    "0x46": [
+     "GLA-551",
+     "",
+     "Child lock switch Signal too low"
+    ],
+    "0x47": [
+     "GLA-522",
+     "",
+     "Central locking switch, passenger door Signal too low"
+    ],
+    "0x48": [
+     "GLA-525",
+     "",
+     "Central locking switch, passenger door Signal too low"
+    ]
+   },
+   "updated_texts": true
+  },
+  "RTI:62": {
+   "id": "RTI:62",
+   "prefix": "RTI",
+   "select_key": null,
+   "select_addr": [
+    98
+   ],
+   "codes": {
+    "0x10": [
+     "RTI-112",
+     "Control module, internal fault memory circuits",
+     "Control module Internal fault"
+    ],
+    "0x20": [
+     "RTI-113",
+     "Control module, internal fault, internal comms",
+     "Control module Internal fault"
+    ],
+    "0x50": [
+     "RTI-115",
+     "Control module, internal fault, internal comms",
+     "Control module Internal fault"
+    ],
+    "0x30": [
+     "RTI-114",
+     "Control module, internal fault, display screen comms",
+     "Control module Internal fault"
+    ],
+    "0x40": [
+     "RTI-121",
+     "CD-ROM player, temperature too high",
+     "CD-ROM player High temperature"
+    ],
+    "0x41": [
+     "RTI-122",
+     "CD-ROM player, internal fault",
+     "CD-ROM player Faulty signal"
+    ],
+    "0x42": [
+     "RTI-123",
+     "CD-ROM player, fault in player circuits",
+     "CD-ROM player Faulty signal"
+    ],
+    "0x44": [
+     "RTI-124",
+     "CD-ROM player, faulty comms signal",
+     "CD-ROM player Faulty signal"
+    ],
+    "0x43": [
+     "RTI-125",
+     "CD-ROM player, fault in player circuits",
+     "CD-ROM player Faulty signal"
+    ],
+    "0x60": [
+     "RTI-131",
+     "TMC receiver, faulty signal",
+     "TMC receiver Faulty signal"
+    ],
+    "0x70": [
+     "RTI-141",
+     "TMC/FM receiver, faulty signal",
+     "FM receiver Faulty signal"
+    ]
+   },
+   "updated_texts": true
+  },
+  "ROP:59": {
+   "id": "ROP:59",
+   "prefix": "ROP",
+   "select_key": null,
+   "select_addr": [
+    89
+   ],
+   "codes": {
+    "0x01": [
+     "ROP-412",
+     "Control Module, Internal Fault",
+     "ECU internal fault Internal fault"
+    ],
+    "0x63": [
+     "ROP-413",
+     "Transit safety catch on",
+     "Transport fuse Active"
+    ],
+    "0x65": [
+     "ROP-427",
+     "ROPS warning lamp faulty signal",
+     "Warning lamp, ROPS Faulty signal"
+    ],
+    "0x66": [
+     "ROP-428",
+     "ROPS warning lamp, signal too high",
+     "Warning lamp, ROPS Signal too high"
+    ],
+    "0x67": [
+     "ROP-429",
+     "Battery voltage signal too low",
+     "Battery power supply Signal too low"
+    ],
+    "0x68": [
+     "ROP-430",
+     "Solenoids S1 & S2, faulty signal crash bow",
+     "Solenoid S1 and S2 Faulty signal"
+    ],
+    "0x69": [
+     "ROP-431",
+     "Left Solenoid S1, signal too low",
+     "Solenoid S1 Signal too low"
+    ],
+    "0x6A": [
+     "ROP-432",
+     "Left Solenoid S1, signal missing",
+     "Solenoid S1 Faulty signal"
+    ],
+    "0x6B": [
+     "ROP-433",
+     "Left Solenoid S1, signal too high",
+     "Solenoid S1 Signal too high"
+    ],
+    "0x6D": [
+     "ROP-441",
+     "Right Solenoid S2, signal too low",
+     "Solenoid S2 Signal too low"
+    ],
+    "0x6E": [
+     "ROP-442",
+     "Right Solenoid S2, signal missing",
+     "Solenoid S2 Faulty signal"
+    ],
+    "0x6F": [
+     "ROP-443",
+     "Right Solenoid S2, signal too high",
+     "Solenoid S2 Signal too high"
+    ],
+    "0x71": [
+     "ROP-451",
+     "Solenoids S1 & S2, fault counter max No. of triggers done",
+     "Solenoids Active"
+    ],
+    "0x78": [
+     "ROP-452",
+     "control module, handling fault during self test",
+     "ECU internal fault Self test"
+    ]
+   },
+   "updated_texts": true
+  },
+  "CCU:42": {
+   "id": "CCU:42",
+   "prefix": "CCU",
+   "select_key": null,
+   "select_addr": [
+    66
+   ],
+   "codes": {
+    "0x03": [
+     "CCU-110",
+     "Control Module, General Fault/Parameter fault",
+     "ECU internal fault Internal fault"
+    ],
+    "0x04": [
+     "CCU-111",
+     "Control Module, General Fault/Parameter fault"
+    ],
+    "0x05": [
+     "CCU-120",
+     "Position sensor, soft top, invalid position",
+     "Convertible top Invalid position state"
+    ],
+    "0x06": [
+     "CCU-121",
+     "Position sensor, soft top, invalid position",
+     "Convertible top Invalid position state"
+    ],
+    "0x07": [
+     "CCU-130",
+     "Time Limit Soft top movement",
+     "Time condition Error in movement"
+    ],
+    "0x08": [
+     "CCU-140",
+     "Motor relay, faulty signal",
+     "Motor relays Faulty signal"
+    ],
+    "0x09": [
+     "CCU-150",
+     "Power supply to control module, signal too low",
+     "Power supply Signal too low"
+    ],
+    "0x0A": [
+     "CCU-160",
+     "Power supply to control module, signal too high",
+     "Power supply Signal too high"
+    ],
+    "0x0B": [
+     "CCU-170",
+     "Power supply to control module, signal missing",
+     "Power supply Signal missing"
+    ],
+    "0x10": [
+     "CCU-210",
+     "Vehicle speed signal missing",
+     "Speed signal Signal missing"
+    ],
+    "0x13": [
+     "CCU-211",
+     "Rocker switch, faulty signal",
+     "Convertible top, up/down switch Faulty signal"
+    ],
+    "0x14": [
+     "CCU-212",
+     "Micro-switch front lock, faulty signal",
+     "Front lock switch Faulty signal"
+    ],
+    "0x15": [
+     "CCU-213",
+     "Micro-switch front locking arm, faulty signal",
+     "Front latch switch Faulty signal"
+    ],
+    "0x16": [
+     "CCU-214",
+     "Micro-switch front locking arm, faulty signal",
+     "Front latch switch Faulty signal"
+    ],
+    "0x17": [
+     "CCU-215",
+     "Micro-switch rear locking arm, faulty signal",
+     "Rear lock switches Faulty signal"
+    ],
+    "0x1A": [
+     "CCU-216",
+     "Micro-switch, lock cover, faulty signal",
+     "Cover lock switch Faulty signal"
+    ],
+    "0x1B": [
+     "CCU-217",
+     "Micro-switch, tensioner rib, faulty signal",
+     "Tension switches Faulty signal"
+    ],
+    "0x20": [
+     "CCU-220",
+     "Position sensor, soft top, Signal too low",
+     "Convertible top Signal too low"
+    ],
+    "0x21": [
+     "CCU-221",
+     "Position sensor, soft top, Signal too high",
+     "Convertible top Signal too high"
+    ],
+    "0x22": [
+     "CCU-222",
+     "Position sensor, rear locking arms, Signal too low",
+     "Rear latch Signal too low"
+    ],
+    "0x23": [
+     "CCU-223",
+     "Position sensor, rear locking arms, Signal too high",
+     "Rear latch Signal too high"
+    ],
+    "0x30": [
+     "CCU-230",
+     "CCU control module outputs, signal too high",
+     "Digital outputs Signal too high"
+    ],
+    "0x31": [
+     "CCU-231",
+     "Air Conditioning System. signal too low",
+     "Air condition Signal too low"
+    ],
+    "0x32": [
+     "CCU-232",
+     "Dashboard LED, signal too low",
+     "Facia LED Signal too low"
+    ],
+    "0x40": [
+     "CCU-310",
+     "Motor current too high",
+     "Motors Current too high"
+    ],
+    "0x41": [
+     "CCU-311",
+     "Soft-top closure, current too high",
+     "Convertible roof, closing Current too high"
+    ],
+    "0x42": [
+     "CCU-312",
+     "Soft-top opening, current too high",
+     "Convertible roof, opening Current too high"
+    ],
+    "0x43": [
+     "CCU-313",
+     "Lock cover closure, current too high",
+     "Cover lock, closing Current too high"
+    ],
+    "0x44": [
+     "CCU-314",
+     "Lock cover opening, current too high",
+     "Cover lock, opening Current too high"
+    ],
+    "0x45": [
+     "CCU-315",
+     "Rear locking arms closure, current too high",
+     "Rear latch, closing Current too high"
+    ],
+    "0x46": [
+     "CCU-316",
+     "Rear locking arms opening, current too high",
+     "Rear latch, opening Current too high"
+    ],
+    "0x47": [
+     "CCU-317",
+     "Front lock closure, current too high",
+     "Front lock, closing Current too high"
+    ],
+    "0x48": [
+     "CCU-318",
+     "Front lock opening, current too high",
+     "Front lock, opening Current too high"
+    ],
+    "0x49": [
+     "CCU-319",
+     "Tensioner rib closing, current too high",
+     "Tension rib, closing Current too high"
+    ],
+    "0x4A": [
+     "CCU-320",
+     "Tensioner rib opening, current too high",
+     "Tension rib, opening Current too high"
+    ]
+   },
+   "updated_texts": true
+  },
+  "EFI:EMS2000": {
+   "id": "EFI:EMS2000",
+   "prefix": "EFI",
+   "select_key": "EMS2000",
+   "select_addr": [],
+   "codes": {
+    "0x13": [
+     "EFI-121",
+     "Mass air flow (MAF) sensor, signal faulty",
+     "MAF sensor signal"
+    ],
+    "0x0F": [
+     "EFI-122",
+     "Intake air temperature (IAT) sensor faulty",
+     "Air temperature sensor signal"
+    ],
+    "0x15": [
+     "EFI-123",
+     "Engine coolant temperature (ECT) sensor, signal",
+     "ECT sensor signal"
+    ],
+    "0x78": [
+     "EFI-131",
+     "Engine speed (RPM) sensor, signal faulty",
+     "RPM sensor signal"
+    ],
+    "0x41": [
+     "EFI-143",
+     "Knock sensor (KS) signal faulty",
+     "Knock sensor (KS)"
+    ],
+    "0x1A": [
+     "EFI-153",
+     "Rear heated oxygen sensor (HO2S), signal faulty",
+     "HO2S sensor signal, rear"
+    ],
+    "0x29": [
+     "EFI-153",
+     "Rear heated oxygen sensor (HO2S), signal faulty",
+     "HO2S sensor signal, rear"
+    ],
+    "0x1E": [
+     "EFI-115",
+     "Injector 1",
+     "Injector 1"
+    ],
+    "0x1F": [
+     "EFI-125",
+     "Injector 2",
+     "Injector 2"
+    ],
+    "0x20": [
+     "EFI-135",
+     "Injector 3",
+     "Injector 3"
+    ],
+    "0x21": [
+     "EFI-145",
+     "Injector 4",
+     "Injector 4"
+    ],
+    "0x16": [
+     "EFI-212",
+     "Front heated oxygen sensor (HO2S), signal faulty",
+     "HO2S sensor signal, front"
+    ],
+    "0x53": [
+     "EFI-214",
+     "Engine speed (RPM) sensor faulty",
+     "RPM sensor"
+    ],
+    "0x24": [
+     "EFI-222",
+     "System relay control, signal faulty",
+     "Main relay signal"
+    ],
+    "0x6B": [
+     "EFI-225",
+     "Air conditioning (A/C) pressure sensor signal faulty",
+     "A/C pressure sensor signal"
+    ],
+    "0x8A": [
+     "EFI-226",
+     "Idle air control (IAC) valve, signal faulty",
+     "Idle Air Control (IAC) valve"
+    ],
+    "0x27": [
+     "EFI-231",
+     "Long-term fuel trim part load speed",
+     "Long term fuel trim, part load"
+    ],
+    "0x26": [
+     "EFI-232",
+     "Long-term fuel trim idling speed",
+     "Long term fuel trim, idling"
+    ],
+    "0x8C": [
+     "EFI-233",
+     "Adaptive idle air trim outside limits",
+     "Long term idle air trim"
+    ],
+    "0x2D": [
+     "EFI-242",
+     "Turbocharger (TC) control valve, signal faulty",
+     "Turbo charger control valve"
+    ],
+    "0xA3": [
+     "EFI-254",
+     "System relay output, circuit faulty",
+     "System relay output"
+    ],
+    "0x6F": [
+     "EFI-311",
+     "Speedometer, signal from ABS faulty",
+     "Vehicle speed sensor (VSS) signal"
+    ],
+    "0x32": [
+     "EFI-314",
+     "Camshaft position (CMP) sensor, signal faulty",
+     "Camshaft Position sensor (CMP) signal"
+    ],
+    "0x7F": [
+     "EFI-323",
+     "Malfunction indicator lamp (MIL) circuit fault",
+     "Malfunction Indicator Lamp (MIL)"
+    ],
+    "0x91": [
+     "EFI-337",
+     "Torque limiting signal from DSA faulty",
+     "Torque reduction"
+    ],
+    "0xFE": [
+     "EFI-337",
+     "DTC stored in DSA Module"
+    ],
+    "0x7D": [
+     "EFI-342",
+     "Air conditioning (A/C) relay signal faulty",
+     "A/C relay signal"
+    ],
+    "0x9A": [
+     "EFI-353",
+     "Communication with Immobilizer faulty signal",
+     "Communication fault, Immobilizer"
+    ],
+    "0x9B": [
+     "EFI-353",
+     "Communication with Immobilizer faulty signal",
+     "Communication fault, Immobilizer"
+    ],
+    "0x73": [
+     "EFI-411",
+     "Throttle position (TP) sensor, signal faulty",
+     "Throttle Position (TP) sensor signal"
+    ],
+    "0x70": [
+     "EFI-412",
+     "Throttle position (TP) signal to DSA faulty",
+     "Signal cable DSA"
+    ],
+    "0x12": [
+     "EFI-414",
+     "Boost pressure flow to low",
+     "Turbocharger (TC) control valve"
+    ],
+    "0x0A": [
+     "EFI-422",
+     "Atmospheric pressure sensor, signal faulty",
+     "Baro sensor signal"
+    ],
+    "0x17": [
+     "EFI-435",
+     "Front heated oxygen sensor short-term fuel trim signal faulty",
+     "Fuel adaption"
+    ],
+    "0x2A": [
+     "EFI-436",
+     "Rear heated oxygen sensor compensation",
+     "Rear heated oxygen sensor (HO2S)"
+    ],
+    "0x5A": [
+     "EFI-443",
+     "Three-way catalytic converter (TWC) efficiency",
+     "TWC Defective"
+    ],
+    "0x25": [
+     "EFI-512",
+     "Short-term fuel trim, changes too quickly",
+     "Short term fuel trim"
+    ],
+    "0x85": [
+     "EFI-514",
+     "Engine cooling fan (FC) low-speed, signal",
+     "Engine coolant fan, low speed"
+    ],
+    "0x87": [
+     "EFI-515",
+     "Engine cooling fan (FC) high-speed signal",
+     "Engine coolant fan, high speed"
+    ],
+    "0x82": [
+     "EFI-516",
+     "Air conditioning (A/C) cooling fan (FC) signal",
+     "A/C Fan relay control"
+    ],
+    "0x18": [
+     "EFI-521",
+     "Front heated oxygen sensor (HO2S) preheating circuit fault",
+     "Front HO2S, preheating"
+    ],
+    "0x2B": [
+     "EFI-521",
+     "Front heated oxygen sensor (HO2S) preheating circuit fault",
+     "Front HO2S, preheating"
+    ],
+    "0x1C": [
+     "EFI-522",
+     "Rear heated oxygen sensor (HO2S) preheating circuit fault",
+     "Rear HO2S, preheating"
+    ],
+    "0x2C": [
+     "EFI-522",
+     "Rear heated oxygen sensor (HO2S) preheating circuit fault",
+     "Rear HO2S, preheating"
+    ],
+    "0x38": [
+     "EFI-525",
+     "Ignition coil 1 circuit faulty",
+     "Ignition coil 1"
+    ],
+    "0x3A": [
+     "EFI-526",
+     "Ignition coil 2 circuit faulty",
+     "Ignition coil 2"
+    ],
+    "0x5C": [
+     "EFI-541",
+     "Canister purge (CP) valve, signal faulty",
+     "EVAP valve signal"
+    ],
+    "0x46": [
+     "EFI-543",
+     "Misfire emission level",
+     "Missfire, Emmission level"
+    ],
+    "0x4D": [
+     "EFI-545",
+     "Misfire with three-way catalytic converter damage",
+     "Missfire, TWC Defective"
+    ],
+    "0x76": [
+     "EFI-666",
+     "DTC in automatic transmission control module (TCM)",
+     "DTC stored in TCM"
+    ],
+    "0xDC": [
+     "EFI-742",
+     "Comms with Trans control module faulty P1620",
+     "Communication, Transmission module"
+    ],
+    "0xDD": [
+     "EFI-742",
+     "Comms with Trans control module faulty P1621",
+     "Communication, Transmission module"
+    ],
+    "0xDE": [
+     "EFI-742",
+     "Comms with Trans control module faulty P1622",
+     "Communication, Transmission module"
+    ],
+    "0xE0": [
+     "EFI-742",
+     "CAN Bus off, No Comms P0600",
+     "Communication, Transmission module"
+    ],
+    "0x0C": [
+     "EFI-?",
+     "",
+     "Manifold air pressure sensor (MAP)"
+    ],
+    "0x0D": [
+     "EFI-?",
+     "",
+     "Manifold air pressure sensor (MAP)"
+    ],
+    "0x10": [
+     "EFI-?",
+     "",
+     "Intake air temperature (IAT) sensor"
+    ],
+    "0x14": [
+     "EFI-?",
+     "",
+     "Mass air flow (MAF) sensor"
+    ],
+    "0x28": [
+     "EFI-?",
+     "",
+     "Front heated oxygen sensor (HO2S)integrator"
+    ],
+    "0x2E": [
+     "EFI-?",
+     "",
+     "Boost pressure"
+    ],
+    "0x43": [
+     "EFI-?",
+     "",
+     "Control module"
+    ],
+    "0x44": [
+     "EFI-?",
+     "",
+     "Missfire, Emmission level"
+    ],
+    "0x45": [
+     "EFI-?",
+     "",
+     "Missfire, Emmission level"
+    ],
+    "0x5D": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x5E": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x5F": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x60": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x61": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x62": [
+     "EFI-?",
+     "",
+     "Reset valve, camshaft"
+    ],
+    "0x65": [
+     "EFI-?",
+     "",
+     "Leak diagnostic"
+    ],
+    "0x66": [
+     "EFI-?",
+     "",
+     "Leak diagnostic"
+    ],
+    "0x68": [
+     "EFI-?",
+     "",
+     "Leak diagnostic"
+    ],
+    "0x6A": [
+     "EFI-?",
+     "",
+     "Canister purge (CP) valve"
+    ],
+    "0x74": [
+     "EFI-?",
+     "",
+     "Throttle position (TP) sensor signal"
+    ],
+    "0x8D": [
+     "EFI-?",
+     "",
+     "Idling"
+    ],
+    "0x9D": [
+     "EFI-?",
+     "",
+     "Control module"
+    ],
+    "0xA0": [
+     "EFI-?",
+     "",
+     "Engine coolant temperature (ECT) sensor"
+    ],
+    "0xA1": [
+     "EFI-?",
+     "",
+     "Engine coolant temperature (ECT) sensor"
+    ],
+    "0xA2": [
+     "EFI-?",
+     "",
+     "Engine coolant temperature (ECT) sensor"
+    ],
+    "0xAC": [
+     "EFI-?",
+     "",
+     "Boost pressure sensor (BOP)"
+    ],
+    "0xAD": [
+     "EFI-?",
+     "",
+     "Boost pressure sensor (BOP)"
+    ],
+    "0xAF": [
+     "EFI-?",
+     "",
+     "Leak diagnostic pump"
+    ],
+    "0x0B": [
+     "EFI-?",
+     "",
+     "Atmospheric pressure sensor"
+    ],
+    "0xA5": [
+     "EFI-?",
+     "",
+     "Air assist injector valve"
+    ],
+    "0xA6": [
+     "EFI-?",
+     "",
+     "Air assist injector valve"
+    ]
+   },
+   "updated_texts": true
+  },
+  "CI:SV40-CI": {
+   "id": "CI:SV40-CI",
+   "prefix": "CI",
+   "select_key": "SV40-CI",
+   "select_addr": [],
+   "codes": {
+    "0x03": [
+     "CI-112",
+     "Fuel level sensor, Signal too low"
+    ],
+    "0x02": [
+     "CI-113",
+     "Fuel level sensor, Signal too high"
+    ],
+    "0x04": [
+     "CI-115",
+     "Fuel level sensor, faulty signal"
+    ],
+    "0x0F": [
+     "CI-122",
+     "Engine coolant temperature (ECT) sensor, Signal too low"
+    ],
+    "0x0E": [
+     "CI-123",
+     "Engine coolant temperature (ECT) sensor, Signal too high"
+    ],
+    "0x11": [
+     "CI-124",
+     "Engine coolant temperature (ECT) signal, Signal missing"
+    ],
+    "0x10": [
+     "CI-125",
+     "Engine coolant temperature (ECT) signal, Signal faulty"
+    ],
+    "0x0D": [
+     "CI-132",
+     "Oil temperature sensor, Signal too low"
+    ],
+    "0x0C": [
+     "CI-133",
+     "Oil temperature sensor, Signal too high"
+    ],
+    "0x0B": [
+     "CI-142",
+     "Ambient temperature sensor, Signal too low"
+    ],
+    "0x0A": [
+     "CI-143",
+     "Ambient temperature sensor, Signal too high"
+    ],
+    "0x15": [
+     "CI-161",
+     "Invalid mode selector switch position, Signal faulty"
+    ],
+    "0x16": [
+     "CI-162",
+     "Trip computer reset button, Signal faulty"
+    ],
+    "0x09": [
+     "CI-174",
+     "Fuel consumtion Signal missing"
+    ],
+    "0x01": [
+     "CI-231",
+     "Control module, Internal fault"
+    ],
+    "0x08": [
+     "CI-314",
+     "Engine speed (RPM) signal, Signal missing"
+    ],
+    "0x07": [
+     "CI-315",
+     "Engine speed (RPM) signal, Signal faulty"
+    ],
+    "0x14": [
+     "CI-325",
+     "Clock adjustment knob, Signal faulty"
+    ],
+    "0x06": [
+     "CI-414",
+     "Vehicle speed signal, Signal missing"
+    ],
+    "0x05": [
+     "CI-415",
+     "Vehicle speed signal, Signal faulty"
+    ],
+    "0x17": [
+     "CI-425",
+     "Trip odometer reset button, Signal faulty"
+    ]
+   }
+  },
+  "ABS:SV40ABS": {
+   "id": "ABS:SV40ABS",
+   "prefix": "ABS",
+   "select_key": "SV40ABS",
+   "select_addr": [],
+   "codes": {
+    "0x00": [
+     "ABS-112",
+     "Control Module, global fault"
+    ],
+    "0x09": [
+     "ABS-142",
+     "Brake Light switch, signal faulty",
+     "Faulty brake light switch Faulty signal"
+    ],
+    "0x08": [
+     "ABS-311",
+     "Wheel sensor signal left front wheel, fault in sensor circuit",
+     "Front left wheel sensor Fault in sensor circuit"
+    ],
+    "0x06": [
+     "ABS-312",
+     "Wheel sensor signal right front wheel, fault in sensor circuit",
+     "Front right wheel sensor"
+    ],
+    "0x05": [
+     "ABS-313",
+     "Wheel sensor signal left rear wheel, fault in sensor circuit",
+     "Rear left wheel sensor"
+    ],
+    "0x07": [
+     "ABS-314",
+     "Wheel sensor signal right rear wheel, fault in sensor circuit",
+     "Rear right wheel sensor Fault in sensor circuit"
+    ],
+    "0x04": [
+     "ABS-321",
+     "Wheel sensor signal left front wheel, signal missing",
+     "Front left wheel sensor Signal missing"
+    ],
+    "0x02": [
+     "ABS-322",
+     "Wheel sensor signal right front wheel, signal missing",
+     "Front right wheel sensor Signal missing"
+    ],
+    "0x01": [
+     "ABS-323",
+     "Wheel sensor signal left rear wheel, signal missing",
+     "Rear left wheel sensor Signal missing"
+    ],
+    "0x03": [
+     "ABS-324",
+     "Wheel sensor signal right rear wheel, signal missing",
+     "Rear right wheel sensor Signal missing"
+    ],
+    "0x0B": [
+     "ABS-331",
+     "Wheel sensor signal from at least one wheel, signal faulty",
+     "Wheel sensor signal, at least one wheel Faulty signal"
+    ],
+    "0x18": [
+     "ABS-411",
+     "Inlet Valve left front wheel, valve coil circuit fault",
+     "Inlet valve for front left wheel Coil circuit fault"
+    ],
+    "0x17": [
+     "ABS-412",
+     "Outlet Valve left front wheel, valve coil circuit fault",
+     "Return valve for front left wheel Coil circuit fault"
+    ],
+    "0x14": [
+     "ABS-413",
+     "Inlet Valve right front wheel, valve coil circuit fault",
+     "Inlet valve for front right wheel Coil circuit fault"
+    ],
+    "0x13": [
+     "ABS-414",
+     "Outlet Valve right front wheel, valve coil circuit fault",
+     "Return valve for front right wheel Coil circuit fault"
+    ],
+    "0x12": [
+     "ABS-421",
+     "Inlet Valve left rear wheel, valve coil circuit fault",
+     "Inlet valve, rear left wheel Coil circuit fault"
+    ],
+    "0x11": [
+     "ABS-422",
+     "Outlet Valve left rear wheel, valve coil circuit fault",
+     "Return valve, rear left wheel Coil circuit fault"
+    ],
+    "0x16": [
+     "ABS-423",
+     "Inlet Valve right rear wheel, valve coil circuit fault",
+     "Inlet valve, rear right wheel Coil circuit fault"
+    ],
+    "0x15": [
+     "ABS-424",
+     "Outlet Valve right rear wheel, valve coil circuit fault",
+     "Return valve, rear right wheel Coil circuit fault"
+    ],
+    "0x0A": [
+     "ABS-433",
+     "Battery voltage too low",
+     "Battery voltage Low voltage"
+    ],
+    "0x0F": [
+     "ABS-441",
+     "Valve Power supply, signal missing",
+     "Valve power supply Signal missing"
+    ],
+    "0x10": [
+     "ABS-443",
+     "Pump motor, electrical or mechanical fault",
+     "Pump motor Electrical or mechanical faults"
+    ],
+    "0x20": [
+     "ABS-112",
+     "",
+     "Control module General fault"
+    ]
+   },
+   "updated_texts": true
+  },
+  "DSA:SV40DSA": {
+   "id": "DSA:SV40DSA",
+   "prefix": "DSA",
+   "select_key": "SV40DSA",
+   "select_addr": [],
+   "codes": {
+    "0x11": [
+     "DSA-112",
+     "Control Module, EEPROM fault",
+     "Control module Memory failure, EEPROM"
+    ],
+    "0x0F": [
+     "DSA-121",
+     "DSA switch, Signal too low",
+     "DSA switch Signal too low"
+    ],
+    "0x10": [
+     "DSA-122",
+     "DSA Warning lamp, signal faulty",
+     "Warning lamp Faulty signal"
+    ],
+    "0x01": [
+     "DSA-131",
+     "Torque reduction signal, signal faulty",
+     "Torque reduction Faulty signal"
+    ],
+    "0x0E": [
+     "DSA-211",
+     "Brake light switch, signal too high",
+     "Brake light switch Signal too high"
+    ],
+    "0x0D": [
+     "DSA-212",
+     "Brake light switch, signal faulty",
+     "Brake light switch Faulty signal"
+    ],
+    "0x05": [
+     "DSA-221",
+     "Load signal, signal missing",
+     "Engine load signal Signal missing"
+    ],
+    "0x06": [
+     "DSA-222",
+     "Load signal, signal faulty",
+     "Engine load signal Faulty signal"
+    ],
+    "0x07": [
+     "DSA-223",
+     "Initiating engine control module, signal faulty",
+     "Initiation of ECM Faulty signal"
+    ],
+    "0x08": [
+     "DSA-224",
+     "DTC stored in engine control module",
+     "DTC stored in ECM"
+    ],
+    "0x02": [
+     "DSA-231",
+     "Throttle position sensor signal, signal missing",
+     "Throttle Position (TP) sensor signal Signal missing"
+    ],
+    "0x03": [
+     "DSA-232",
+     "Throttle position sensor signal, signal faulty",
+     "Throttle Position (TP) sensor signal Faulty signal"
+    ],
+    "0x04": [
+     "DSA-233",
+     "DTC stored in engine control module",
+     "DTC stored in ECM"
+    ],
+    "0x09": [
+     "DSA-311",
+     "Wheel speed signal left front wheel, signal faulty",
+     "Wheel speed front left Faulty signal"
+    ],
+    "0x0A": [
+     "DSA-312",
+     "Wheel speed signal right front wheel, signal faulty",
+     "Wheel speed front right Faulty signal"
+    ],
+    "0x0B": [
+     "DSA-313",
+     "Wheel speed signal left rear wheel, signal faulty",
+     "Wheel speed rear left Faulty signal"
+    ],
+    "0x0C": [
+     "DSA-314",
+     "Wheel speed signal right rear wheel, signal faulty",
+     "Wheel speed rear right Faulty signal"
+    ]
+   },
+   "updated_texts": true
+  },
+  "KEY:SV40KLE": {
+   "id": "KEY:SV40KLE",
+   "prefix": "KEY",
+   "select_key": "SV40KLE",
+   "select_addr": [],
+   "codes": {
+    "0x59": [
+     "KEY-112",
+     "Control Module Fault in RAM",
+     "Control module (CM) fault Memory fault RAM"
+    ],
+    "0x40": [
+     "KEY-113",
+     "Control Module Software Fault",
+     "Control module (CM) fault Software error"
+    ],
+    "0x41": [
+     "KEY-114",
+     "Control Module Fault in EEPROM",
+     "Control module (CM) fault Memory fault ROM"
+    ],
+    "0x45": [
+     "KEY-211",
+     "Central Locking Motor, locking, Short Circuit to Battery",
+     "Lock system Shorted to supply"
+    ],
+    "0x44": [
+     "KEY-212",
+     "Central Locking Motor, unlocking, Short Circuit to Battery",
+     "Unlock system Shorted to supply"
+    ],
+    "0x4E": [
+     "KEY-214",
+     "Central Locking Motor, deadlock short circuit to Battery",
+     "Deadlock system motors Shorted to supply"
+    ],
+    "0x47": [
+     "KEY-221",
+     "Central Locking Motor, locking, Short Circuit to ground",
+     "Lock system Ground (GND) short"
+    ],
+    "0x46": [
+     "KEY-222",
+     "Central Locking Motor, unlocking, Short Circuit to ground",
+     "Unlock system Ground (GND) short"
+    ],
+    "0x48": [
+     "KEY-224",
+     "Central Locking Motor, deadlock short circuit to ground",
+     "Deadlock system motors Ground (GND) short"
+    ],
+    "0x4A": [
+     "KEY-311",
+     "Siren, no serial connection",
+     "Siren No communication"
+    ],
+    "0x4B": [
+     "KEY-312",
+     "Siren, internal fault",
+     "Siren fault Internal fault"
+    ],
+    "0x4D": [
+     "KEY-321",
+     "Siren, fault in power supply",
+     "Siren, power supply Open circuit"
+    ],
+    "0x4F": [
+     "KEY-411",
+     "Ultrasonic sensor module, no serial connection",
+     "Ultrasonic sensor No communication"
+    ],
+    "0x51": [
+     "KEY-412",
+     "Ultrasonic sensor module, internal fault",
+     "Ultrasonic sensor Internal fault"
+    ],
+    "0x54": [
+     "KEY-421",
+     "Glass breakage sensor module, no serial connection",
+     "Glassbreak sensor No communication"
+    ],
+    "0x55": [
+     "KEY-422",
+     "Glass breakage sensor module, internal fault",
+     "Glassbreak sensor Internal fault"
+    ],
+    "0x49": [
+     "KEY-511",
+     "Control switch, locking, Short Circuit to ground",
+     "Door lock switch, lock signal Ground (GND) short"
+    ],
+    "0x42": [
+     "KEY-512",
+     "Control switch, unlocking, Short Circuit to ground",
+     "Door lock switch, unlock signal Ground (GND) short"
+    ],
+    "0x43": [
+     "KEY-521",
+     "Central Locking switch, Short Circuit to ground",
+     "Central lock switch signal"
+    ],
+    "0x56": [
+     "KEY-522",
+     "Ultrasonic sensor control switch, Short Circuit to ground",
+     "Ultrasonic sensor switch signal Ground (GND) short"
+    ],
+    "0x58": [
+     "KEY-528",
+     "Remote control, no code programmed",
+     "Remote control No keys programmed"
+    ],
+    "0x53": [
+     "KEY-531",
+     "Interior Lighting, short circuit to Battery",
+     "Interior light signal Shorted to supply"
+    ]
+   },
+   "updated_texts": true
+  },
+  "ECC:SV40ECC": {
+   "id": "ECC:SV40ECC",
+   "prefix": "ECC",
+   "select_key": "SV40ECC",
+   "select_addr": [],
+   "codes": {
+    "0x01": [
+     "ECC-121",
+     "Outside temperature sensor, OC or SC to ground",
+     "Ambient temperature sensor Ground (GND) short"
+    ],
+    "0x02": [
+     "ECC-122",
+     "Outside temperature sensor, OC or SC to battery",
+     "Ambient temperature sensor Shorted to supply"
+    ],
+    "0x03": [
+     "ECC-123",
+     "Interior Temperature sensor, OC or SC to ground",
+     "Interior temperature sensor Ground (GND) short"
+    ],
+    "0x04": [
+     "ECC-124",
+     "Interior Temperature sensor, OC or SC to battery",
+     "Interior temperature sensor Shorted to supply"
+    ],
+    "0x40": [
+     "ECC-135",
+     "Engine coolant temperature sensor, OC or SC to ground",
+     "Engine coolant temperature (ECT) Ground (GND) short"
+    ],
+    "0x41": [
+     "ECC-136",
+     "Engine coolant temperature sensor, OC or SC to battery",
+     "Engine coolant temperature (ECT) Shorted to supply"
+    ],
+    "0x42": [
+     "ECC-137",
+     "Evaporator sensor, OC or SC to ground",
+     "Evaporator sensor Ground (GND) short"
+    ],
+    "0x43": [
+     "ECC-138",
+     "Evaporator sensor, OC or SC to battery",
+     "Evaporator sensor Shorted to supply"
+    ],
+    "0x17": [
+     "ECC-139",
+     "Generator D+, signal missing",
+     "Generator (GEN) D+"
+    ],
+    "0x18": [
+     "ECC-140",
+     "Speedometer, signal too high",
+     "Speedometer Signal too high"
+    ],
+    "0x06": [
+     "ECC-211",
+     "Temperature Motor Position sensor, SC to ground",
+     "Position sensor damper motor temperature driver Ground (GND) short"
+    ],
+    "0x07": [
+     "ECC-212",
+     "Temperature Motor Position sensor, SC to to battery",
+     "Position sensor damper motor temperature driver Shorted to supply"
+    ],
+    "0x0A": [
+     "ECC-221",
+     "Air distribution motor position sensor, SC to ground",
+     "Position sensor damper motor air distribution Ground (GND) short"
+    ],
+    "0x0B": [
+     "ECC-222",
+     "Air distribution motor position sensor, SC to battery",
+     "Position sensor damper motor air distribution Shorted to supply"
+    ],
+    "0x0E": [
+     "ECC-311",
+     "Temperature damper motor, SC to ground or battery",
+     "Damper motor temperature"
+    ],
+    "0x12": [
+     "ECC-312",
+     "Temperature damper motor, OC or active too long",
+     "Damper motor temperature Active too long"
+    ],
+    "0x10": [
+     "ECC-321",
+     "Air distribution motor, SC to ground or battery",
+     "Damper motor air distribution"
+    ],
+    "0x13": [
+     "ECC-322",
+     "Air distribution motor, OC or active too long",
+     "Damper motor air distribution Active too long"
+    ],
+    "0x11": [
+     "ECC-323",
+     "Recirculation damper motor, SC to ground or battery",
+     "Damper motor air recirculation"
+    ],
+    "0x1C": [
+     "ECC-411",
+     "Blower fan motor, signal missing",
+     "Blower fan motor"
+    ],
+    "0x1F": [
+     "ECC-412",
+     "Blower fan motor, SC to ground in signal cable",
+     "Blower fan motor Ground (GND) short"
+    ],
+    "0x44": [
+     "ECC-421",
+     "Blower fan relay, signal missing",
+     "Blower fan relay"
+    ],
+    "0x45": [
+     "ECC-422",
+     "Blower fan relay, SC to ground in signal cable",
+     "Blower fan relay Shorted to supply"
+    ],
+    "0x19": [
+     "ECC-431",
+     "Blower fan switch, signal missing",
+     "Blower fan switch Signal missing"
+    ],
+    "0x1A": [
+     "ECC-432",
+     "Blower fan switch, SC to ground",
+     "Blower fan switch Ground (GND) short"
+    ],
+    "0x1B": [
+     "ECC-433",
+     "Blower fan motor, excess current or blocking",
+     "Blower fan motor"
+    ],
+    "0x21": [
+     "ECC-440",
+     "Internal fault in control module memory",
+     "Internal fault in control module"
+    ]
+   },
+   "updated_texts": true
+  },
+  "HEA:18": {
+   "id": "HEA:18",
+   "prefix": "HEA",
+   "select_key": null,
+   "select_addr": [
+    24
+   ],
+   "codes": {
+    "0x4B": [
+     "HEA-112",
+     "Control module, General fault",
+     "Control module General fault"
+    ],
+    "0x4A": [
+     "HEA-113",
+     "Control module, Parameter fault",
+     "Control module Parameter fault"
+    ],
+    "0x34": [
+     "HEA-142",
+     "Outside temperature sensor, Signal too high",
+     "Outside temperature sensor Signal too high"
+    ],
+    "0x35": [
+     "HEA-143",
+     "Outside temperature sensor, Signal too low",
+     "Outside temperature sensor Signal too low"
+    ],
+    "0x31": [
+     "HEA-801",
+     "Coolant temperature sensor, Signal too high",
+     "Coolant temperature sensor Signal too high"
+    ],
+    "0x32": [
+     "HEA-802",
+     "Coolant temperature sensor, Signal too low",
+     "Coolant temperature sensor Signal too low"
+    ],
+    "0x33": [
+     "HEA-803",
+     "Coolant temperature sensor, Signal faulty",
+     "Coolant temperature sensor Faulty signal"
+    ],
+    "0x36": [
+     "HEA-811",
+     "Flame sensor, Signal too low during run",
+     "Flame sensor Signal too low"
+    ],
+    "0x38": [
+     "HEA-812",
+     "Flame sensor, Signal too high during start",
+     "Flame sensor Signal too high"
+    ],
+    "0x39": [
+     "HEA-813",
+     "Flame sensor, Signal too high",
+     "Flame sensor Signal too high"
+    ],
+    "0x3C": [
+     "HEA-814",
+     "Combustion fan, Signal too high",
+     "Blower fan Signal too high"
+    ],
+    "0x3D": [
+     "HEA-815",
+     "Combustion fan, Signal too low",
+     "Blower fan Signal too low"
+    ],
+    "0x3E": [
+     "HEA-816",
+     "Combustion fan, faulty signal",
+     "Blower fan Faulty signal"
+    ],
+    "0x3A": [
+     "HEA-821",
+     "Water pump, Signal too high",
+     "Water pump Signal too high"
+    ],
+    "0x3B": [
+     "HEA-822",
+     "Water pump, Signal too low",
+     "Water pump Signal too low"
+    ],
+    "0x3F": [
+     "HEA-825",
+     "Fuel pump (FP), Signal too high",
+     "Fuel pump (FP) Signal too high"
+    ],
+    "0x40": [
+     "HEA-826",
+     "Fuel pump (FP), Signal too low",
+     "Fuel pump (FP) Signal too low"
+    ],
+    "0x41": [
+     "HEA-831",
+     "Overheat protection thermostat, Signal too low",
+     "Overheat protection thermostat Overheating"
+    ],
+    "0x48": [
+     "HEA-832",
+     "Overheat protection thermostat, faulty signal",
+     "Overheat protection thermostat Faulty signal"
+    ],
+    "0x42": [
+     "HEA-841",
+     "Power supply, Short Circuit to supply",
+     "Power supply Faulty"
+    ],
+    "0x43": [
+     "HEA-842",
+     "Power supply, open circuit",
+     "Power supply Missing"
+    ],
+    "0x47": [
+     "HEA-843",
+     "Control module power supply, Signal too high",
+     "Control module power supply Signal too high"
+    ],
+    "0x44": [
+     "HEA-851",
+     "Blower fan, Signal too high",
+     "Blower fan signal Signal too high"
+    ],
+    "0x45": [
+     "HEA-852",
+     "Blower fan, Signal too low",
+     "Blower fan signal Signal too low"
+    ],
+    "0x46": [
+     "HEA-861",
+     "Glow plugs, Short or open circuit",
+     "Glow plug Faulty signal"
+    ],
+    "0x49": [
+     "HEA-891",
+     "Too many unsuccessful, Start attempts",
+     "Start attempts Too many unsuccessful"
+    ],
+    "0x51": [
+     "HEA-898",
+     "Factory set DTC no fault with heater",
+     "Factory set diagnostic trouble code (DTC)"
+    ],
+    "0x37": [
+     "HEA-899",
+     "Factory set DTC no fault with heater",
+     "Factory set diagnostic trouble code (DTC)"
+    ]
+   },
+   "updated_texts": true
+  }
+ },
+ "menu": [
+  {
+   "car": "850",
+   "title": "850 Auto Gearbox (Diesel)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "850",
+   "title": "850 Immobilizer 2",
+   "address": 65,
+   "init_byte": 193,
+   "key": null,
+   "table": "IMM:41"
+  },
+  {
+   "car": "850",
+   "title": "850 MSA 15.7 (Diesel)",
+   "address": 17,
+   "init_byte": 145,
+   "key": null,
+   "table": "EFI:11"
+  },
+  {
+   "car": "850",
+   "title": "850 Power Seat Left",
+   "address": 46,
+   "init_byte": 174,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "850",
+   "title": "850 Power Seat Right",
+   "address": 47,
+   "init_byte": 47,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "850",
+   "title": "850 SRS",
+   "address": 88,
+   "init_byte": 88,
+   "key": null,
+   "table": "SRS:58"
+  },
+  {
+   "car": "850",
+   "title": "850 ABS",
+   "address": 1,
+   "init_byte": 1,
+   "key": "850-ABS",
+   "table": "ABS:850-ABS"
+  },
+  {
+   "car": "850",
+   "title": "850 Auto Gearbox (Petrol)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "850",
+   "title": "850 Combined Instrument",
+   "address": 81,
+   "init_byte": 81,
+   "key": "850--CI",
+   "table": "CI:850--CI"
+  },
+  {
+   "car": "850",
+   "title": "850 Motronic 4.4",
+   "address": 122,
+   "init_byte": 122,
+   "key": "MOT-4.4",
+   "table": "EFI:MOT-4.4"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Auto Gearbox (Diesel)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Electronic Climate Control",
+   "address": 41,
+   "init_byte": 41,
+   "key": "SV70ECC",
+   "table": "ECC:SV70ECC"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Additional Heater 912-D",
+   "address": 24,
+   "init_byte": 152,
+   "key": null,
+   "table": "HEA:18"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Immobilizer 2/3",
+   "address": 65,
+   "init_byte": 193,
+   "key": null,
+   "table": "IMM:41"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 MSA 15.7 (Diesel)",
+   "address": 17,
+   "init_byte": 145,
+   "key": null,
+   "table": "EFI:11"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Power Seat Left",
+   "address": 46,
+   "init_byte": 174,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Power Seat Right",
+   "address": 47,
+   "init_byte": 47,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Road Traffic Information",
+   "address": 98,
+   "init_byte": 98,
+   "key": null,
+   "table": "RTI:62"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 SRS",
+   "address": 88,
+   "init_byte": 88,
+   "key": null,
+   "table": "SRS:58"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 ABS",
+   "address": 1,
+   "init_byte": 1,
+   "key": "850-ABS",
+   "table": "ABS:850-ABS"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Auto Gearbox (Petrol)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Combined Instrument",
+   "address": 81,
+   "init_byte": 81,
+   "key": "850--CI",
+   "table": "CI:850--CI"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Motronic 4.4",
+   "address": 122,
+   "init_byte": 122,
+   "key": "MOT-4.4",
+   "table": "EFI:MOT-4.4"
+  },
+  {
+   "car": "S/V70",
+   "title": "S/V 70 Volvo Guard Lock & Alarm",
+   "address": 45,
+   "init_byte": 173,
+   "key": "SV70GLA",
+   "table": "GLA:SV70GLA"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Cab Control Unit",
+   "address": 66,
+   "init_byte": 194,
+   "key": null,
+   "table": "CCU:42"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Electronic Climate Control",
+   "address": 41,
+   "init_byte": 41,
+   "key": "SV70ECC",
+   "table": "ECC:SV70ECC"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Immobilizer 2/3",
+   "address": 65,
+   "init_byte": 193,
+   "key": null,
+   "table": "IMM:41"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Power Seat Left",
+   "address": 46,
+   "init_byte": 174,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Power Seat Right",
+   "address": 47,
+   "init_byte": 47,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Roll Over Protection",
+   "address": 89,
+   "init_byte": 217,
+   "key": null,
+   "table": "ROP:59"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Road Traffic Information",
+   "address": 98,
+   "init_byte": 98,
+   "key": null,
+   "table": "RTI:62"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 SRS / SRS-CAB",
+   "address": 88,
+   "init_byte": 88,
+   "key": null,
+   "table": "SRS:58"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 ABS",
+   "address": 1,
+   "init_byte": 1,
+   "key": "850-ABS",
+   "table": "ABS:850-ABS"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Auto Gearbox (Petrol)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Combined Instrument",
+   "address": 81,
+   "init_byte": 81,
+   "key": "850--CI",
+   "table": "CI:850--CI"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Motronic 4.4",
+   "address": 122,
+   "init_byte": 122,
+   "key": "MOT-4.4",
+   "table": "EFI:MOT-4.4"
+  },
+  {
+   "car": "C70",
+   "title": "C 70 Volvo Guard Lock & Alarm",
+   "address": 45,
+   "init_byte": 173,
+   "key": "SV70GLA",
+   "table": "GLA:SV70GLA"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 Immobilizer 2",
+   "address": 65,
+   "init_byte": 193,
+   "key": null,
+   "table": "IMM:41"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 Power Seat Left",
+   "address": 46,
+   "init_byte": 174,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 Power Seat Right",
+   "address": 47,
+   "init_byte": 47,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 Auto Gearbox",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 Motronic 4.4",
+   "address": 122,
+   "init_byte": 122,
+   "key": "MOT-4.4",
+   "table": "EFI:MOT-4.4"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "S/V 90 Road Traffic Information",
+   "address": 98,
+   "init_byte": 98,
+   "key": null,
+   "table": "RTI:62"
+  },
+  {
+   "car": "900 & S/V90",
+   "title": "900 & S/V 90 SRS",
+   "address": 88,
+   "init_byte": 88,
+   "key": null,
+   "table": "SRS:58"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Dynamic Stability Control",
+   "address": 2,
+   "init_byte": 2,
+   "key": "SV40DSA",
+   "table": "DSA:SV40DSA"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Electronic Climate Control",
+   "address": 41,
+   "init_byte": 41,
+   "key": "SV40ECC",
+   "table": "ECC:SV40ECC"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 EMS 2000",
+   "address": 122,
+   "init_byte": 122,
+   "key": "EMS2000",
+   "table": "EFI:EMS2000"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Additional Heater 912-D",
+   "address": 24,
+   "init_byte": 152,
+   "key": null,
+   "table": "HEA:18"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Immobilizer 2/3",
+   "address": 65,
+   "init_byte": 193,
+   "key": null,
+   "table": "IMM:41"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Power Seat Left",
+   "address": 46,
+   "init_byte": 174,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Power Seat Right",
+   "address": 47,
+   "init_byte": 47,
+   "key": null,
+   "table": "PS:2E_2F"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Road Traffic Information",
+   "address": 98,
+   "init_byte": 98,
+   "key": null,
+   "table": "RTI:62"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 SRS",
+   "address": 88,
+   "init_byte": 88,
+   "key": null,
+   "table": "SRS:58"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 ABS",
+   "address": 1,
+   "init_byte": 1,
+   "key": "SV40ABS",
+   "table": "ABS:SV40ABS"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Auto Gearbox (Petrol)",
+   "address": 110,
+   "init_byte": 110,
+   "key": null,
+   "table": "AT:6E"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Combined Instrument",
+   "address": 81,
+   "init_byte": 81,
+   "key": "SV40-CI",
+   "table": "CI:SV40-CI"
+  },
+  {
+   "car": "S/V40",
+   "title": "S/V 40 Keyless Entry",
+   "address": 45,
+   "init_byte": 173,
+   "key": "SV40KLE",
+   "table": "KEY:SV40KLE"
+  }
+ ],
+ "updated_texts": {
+  "tables": [
+   "ABS:SV40ABS",
+   "CCU:42",
+   "DSA:SV40DSA",
+   "ECC:SV40ECC",
+   "ECC:SV70ECC",
+   "EFI:11",
+   "EFI:EMS2000",
+   "GLA:SV70GLA",
+   "HEA:18",
+   "IMM:41",
+   "KEY:SV40KLE",
+   "PS:2E_2F",
+   "ROP:59",
+   "RTI:62"
+  ],
+  "improved": 371,
+  "added": 38,
+  "kept": 2
+ }
+}
