@@ -11,6 +11,9 @@
 
 ## Done
 
+- [x] Database editing (23 Sep 2026): **Export CSV…** writes a codes file and a systems file; **Import CSV…** checks them (row numbers for any problem, nothing changed on error), saves a new database and uses it. The app remembers the chosen database; **Use built-in database** goes back. `DATABASE.md` is the reference for the JSON and CSV formats.
+- [x] README: removed the rebuild-from-legacy-EXE commands and the extraction note (23 Sep 2026).
+
 - [x] Installers (23 Sep 2026), version 1.0.0, with an app icon:
   - Linux `.deb` (`packaging/linux/build_deb.sh`): menu entry, `p80diag` command, depends on python3-tk and python3-serial. Install, run and remove tested.
   - Windows kit (`packaging/windows/build_windows.bat` + Inno Setup script): 32-bit one-file `P80Diagnostics.exe` and a Setup installer. Must be built on Windows.

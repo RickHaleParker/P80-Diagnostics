@@ -6,7 +6,7 @@
 ; Paths are relative to this file.
 
 #ifndef MyAppVersion
-  #define MyAppVersion "1.0.0"
+  #define MyAppVersion "1.1.0"
 #endif
 #define MyAppName "P80 Diagnostics"
 #define MyAppExe "P80Diagnostics.exe"
@@ -37,6 +37,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "..\..\dist\{#MyAppExe}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\README.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\DATABASE.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
 
 [Icons]

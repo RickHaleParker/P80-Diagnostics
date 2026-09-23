@@ -7,13 +7,13 @@ A cross-platform fault code reader for 1996–98 Volvo cars (850, S/V70, C70, 90
 It has two tabs:
 
 - **Read Codes:** talks to the car over K-line. Reads and clears DTCs, reads the ECU ID and resets the service light. Every action in the session is kept, and **Save session…** writes them all to one CSV file.
-- **Code Database:** the fault-code tables and ECU addresses the app uses. A built-in database loads at start. You can open a different JSON database, export all codes to CSV, or add updated fault-code texts.
+- **Code Database:** the fault-code tables and ECU addresses the app uses. A built-in database loads at start. You can export it to spreadsheet files, edit them, and import them back as your own database. See [DATABASE.md](DATABASE.md).
 
 ## Install
 
-**Linux Mint / Ubuntu / Debian.** Double-click `p80-diagnostics_1.0.0_all.deb`, or run `sudo apt install ./p80-diagnostics_1.0.0_all.deb`. It pulls in `python3-tk` and `python3-serial`, and adds **P80 Diagnostics** to the menu (Utilities). You can also start it with `p80diag` in a terminal. To use a USB cable, your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and in. Remove with `sudo apt remove p80-diagnostics`.
+**Linux Mint / Ubuntu / Debian.** Double-click `p80-diagnostics_1.1.0_all.deb`, or run `sudo apt install ./p80-diagnostics_1.1.0_all.deb`. It pulls in `python3-tk` and `python3-serial`, and adds **P80 Diagnostics** to the menu (Utilities). You can also start it with `p80diag` in a terminal. To use a USB cable, your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and in. Remove with `sudo apt remove p80-diagnostics`.
 
-**Windows.** Run `P80Diagnostics-1.0.0-Setup.exe`. It installs to Program Files and adds a Start menu entry (and a desktop icon if you tick it). No Python needed. The program is 32-bit, so J2534 drivers work. Windows may warn that the file is from an unknown publisher, because it isn't code-signed: click **More info → Run anyway**.
+**Windows.** Run `P80Diagnostics-1.1.0-Setup.exe`. It installs to Program Files and adds a Start menu entry (and a desktop icon if you tick it). No Python needed. The program is 32-bit, so J2534 drivers work. Windows may warn that the file is from an unknown publisher, because it isn't code-signed: click **More info → Run anyway**.
 
 **From source (any system).** Needs Python 3.8+ with Tk (included with the python.org installers on Windows and macOS; on Linux install `python3-tk`).
 
@@ -32,9 +32,7 @@ On Windows, double-click `run_p80diag.bat`; it uses 32-bit Python 3.11 (`py -3.1
 
 The version number is in `p80diag/__init__.py`.
 
-A ready-made `p80diag/dtc_db.json` is included. The app loads it at start.
-
-The tables were originally extracted from a legacy VB6 p-code fault-reader EXE. That extractor is kept as a command-line tool only (see Command line).
+A ready-made `p80diag/dtc_db.json` is included. The app loads it at start. [DATABASE.md](DATABASE.md) explains its format and how to change it.
 
 ## Interfaces
 
@@ -76,27 +74,13 @@ The included database has updated fault-code texts merged in. They cover 14 of t
 
 Untick **Show updated texts when available** on the Code Database tab to see the original texts instead. Saved CSVs keep both.
 
-**Add updated texts…** can rebuild them from a SQL Server diagnostic database file (`.zip` containing the `.mdf`, or the `.mdf` itself). No SQL Server is needed; the app reads the file directly. It takes several minutes. From the command line:
-
-```
-python -m p80diag.textdb database.zip -o updated_texts.json
-python -m p80diag.textdb --merge updated_texts.json p80diag/dtc_db.json
-```
+**Add updated texts…** can rebuild them from a SQL Server diagnostic database file (`.zip` containing the `.mdf`, or the `.mdf` itself). No SQL Server is needed; the app reads the file directly. It takes several minutes.
 
 No updated texts yet for Motronic 4.4, 850-type ABS, 850-type Combined Instrument, SRS, the S/V40 Combined Instrument or the gearbox.
 
 ## Demo mode
 
 Pick **Demo (simulated car)** as the port. A pretend ECU answers with three known codes and one unknown byte.
-
-## Command line
-
-Rebuild the code database from the legacy fault-reader EXE (only needed if `dtc_db.json` is lost):
-
-```
-python -m p80diag.extract legacy.exe -o dtc_db.json --csv P80_DTC_wire_map.csv
-python -m p80diag.textdb --merge updated_texts.json dtc_db.json
-```
 
 ## Protocol
 

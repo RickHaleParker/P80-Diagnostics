@@ -20,7 +20,6 @@ import time
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
-from . import extract
 from .kline import KLine, KLineError, hexs
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,7 +55,7 @@ def list_ports():
 
 def load_json(path, default):
     try:
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     except (OSError, ValueError):
         return default
@@ -130,7 +129,10 @@ class App(tk.Tk):
         menubar.add_cascade(label="Help", menu=helpmenu)
         self.config(menu=menubar)
 
-        if os.path.exists(DEFAULT_DB):
+        mine = self.settings.get("db_path")
+        if mine and os.path.exists(mine) and self.load_db(mine):
+            self.log(f"Using your database: {mine}  (Code Database tab → Use built-in database to go back)")
+        elif os.path.exists(DEFAULT_DB):
             self.load_db(DEFAULT_DB)
         self.after(50, self._pump)
         self.after(1500, self._keepalive_tick)
@@ -220,23 +222,28 @@ class App(tk.Tk):
 
     def _build_db(self):
         f = self.tab_db
-        ttk.Label(f, text="The fault-code tables and ECU addresses the app uses. A built-in database "
-                          "is loaded at start; you normally don't need to change anything here.",
+        ttk.Label(f, text="The fault-code tables and ECU addresses the app uses. You normally don't need to "
+                          "change anything here. To edit codes: Export CSV, change the files in a spreadsheet, "
+                          "then Import CSV. DATABASE.md explains the columns.",
                   wraplength=860).pack(anchor="w", pady=6)
         acts = ttk.Frame(f)
         acts.pack(fill="x")
         for i, (label, cmd, desc) in enumerate((
-                ("Open JSON database…", self.open_json,
-                 "Load a different code database file (.json) instead of the built-in one."),
                 ("Export CSV…", self.export_csv,
-                 "Save every code to a spreadsheet file (.csv): wire byte, code, and original and updated text."),
+                 "Save the database as two spreadsheet files: every code, and the System menu."),
+                ("Import CSV…", self.import_csv,
+                 "Load edited spreadsheet files back in, check them, and save as a new database."),
+                ("Open JSON database…", self.open_json,
+                 "Use a different code database file (.json). The app remembers it."),
+                ("Use built-in database", self.use_builtin,
+                 "Go back to the database that came with the app."),
                 ("Add updated texts…", self.do_updated,
                  "Merge better fault-code descriptions from a database file or a saved updated-texts file."))):
             ttk.Button(acts, text=label, command=cmd, width=22).grid(row=i, column=0, sticky="w", padx=3, pady=2)
             ttk.Label(acts, text=desc, foreground="gray").grid(row=i, column=1, sticky="w", padx=8)
         self.use_updated = tk.BooleanVar(value=True)
         ttk.Checkbutton(acts, text="Show updated texts when available", variable=self.use_updated,
-                        command=self.save_settings).grid(row=3, column=0, columnspan=2, sticky="w", padx=3, pady=(4, 0))
+                        command=self.save_settings).grid(row=5, column=0, columnspan=2, sticky="w", padx=3, pady=(4, 0))
         self.dbinfo = tk.StringVar(value="No database loaded")
         ttk.Label(f, textvariable=self.dbinfo).pack(anchor="w", pady=6)
         self.db_tree = ttk.Treeview(f, columns=("table", "sel", "n", "upd", "users"), show="headings")
@@ -258,13 +265,18 @@ class App(tk.Tk):
             pass
 
     # ---------------- database -----------------
-    def load_db(self, path):
+    def load_db(self, path, remember=False):
         db = load_json(path, None)
-        if not db:
+        if not db or "tables" not in db or "menu" not in db:
             messagebox.showerror("Database", f"Could not read {path}")
-            return
+            return False
         self.db = db
         self._db_loaded(path)
+        if remember:
+            self.settings["db_path"] = None if os.path.abspath(path) == os.path.abspath(DEFAULT_DB) else path
+            self.save_settings()
+            self.log(f"Using database: {path}")
+        return True
 
     def _db_loaded(self, where):
         tables, menu = self.db["tables"], self.db["menu"]
@@ -324,24 +336,75 @@ class App(tk.Tk):
             out = filedialog.asksaveasfilename(title="Save database", defaultextension=".json",
                                                initialfile="dtc_db.json", filetypes=[("JSON", "*.json")])
             if out:
-                with open(out, "w") as f:
+                with open(out, "w", encoding="utf-8") as f:
                     json.dump(self.db, f, indent=1)
+                self.load_db(out, remember=True)
         self.run_bg(job, done, "Reading database (this takes several minutes)…")
 
     def open_json(self):
         p = filedialog.askopenfilename(filetypes=[("JSON", "*.json")])
         if p:
-            self.load_db(p)
+            self.load_db(p, remember=True)
+
+    def use_builtin(self):
+        self.load_db(DEFAULT_DB, remember=True)
 
     def export_csv(self):
         if not self.db:
             return
-        p = filedialog.asksaveasfilename(defaultextension=".csv", initialfile="P80_DTC_wire_map.csv")
-        if p:
-            with open(p, "w", newline="") as f:
-                w = csv.writer(f, quoting=csv.QUOTE_ALL)
-                w.writerow(extract.CSV_HEADER)
-                w.writerows(extract.to_csv_rows(self.db))
+        p = filedialog.asksaveasfilename(defaultextension=".csv", initialfile="P80_codes.csv",
+                                         filetypes=[("CSV", "*.csv")])
+        if not p:
+            return
+        from . import csvdb
+        sp = csvdb.systems_path_for(p)
+        try:
+            n = csvdb.export_codes(self.db, p)
+            m = csvdb.export_systems(self.db, sp)
+        except OSError as e:
+            messagebox.showerror("Export CSV", str(e))
+            return
+        self.log(f"Exported {n} codes to {p} and {m} systems to {sp}")
+        messagebox.showinfo("Export CSV", f"Saved two files:\n\n{os.path.basename(p)}  ({n} codes)\n"
+                                          f"{os.path.basename(sp)}  ({m} systems)\n\n"
+                                          "Edit them in LibreOffice or Excel, save as CSV, "
+                                          "then use Import CSV… to load them back.")
+
+    def import_csv(self):
+        if not self.db:
+            return
+        paths = filedialog.askopenfilenames(title="Pick the codes CSV, the systems CSV, or both",
+                                            filetypes=[("CSV", "*.csv"), ("All", "*")])
+        if not paths:
+            return
+        from . import csvdb
+        try:
+            db, lines = csvdb.import_files(self.db, list(paths))
+        except csvdb.ImportError_ as e:
+            shown = e.problems[:15]
+            more = f"\n…and {len(e.problems) - 15} more" if len(e.problems) > 15 else ""
+            for ln in e.problems:
+                self.log(f"Import: {ln}")
+            messagebox.showerror("Import CSV", "Nothing was changed. Fix these and try again:\n\n"
+                                 + "\n".join(shown) + more)
+            return
+        except OSError as e:
+            messagebox.showerror("Import CSV", str(e))
+            return
+        for ln in lines:
+            self.log(f"Import: {ln}")
+        if not messagebox.askyesno("Import CSV", "\n".join(lines) + "\n\nSave this as a new database and use it?"):
+            return
+        out = filedialog.asksaveasfilename(title="Save the new database", defaultextension=".json",
+                                           initialfile="my_dtc_db.json", filetypes=[("JSON", "*.json")])
+        if not out:
+            return
+        if os.path.abspath(out) == os.path.abspath(DEFAULT_DB):
+            messagebox.showerror("Import CSV", "Save it under a different name; the built-in database stays as it is.")
+            return
+        with open(out, "w", encoding="utf-8") as f:
+            json.dump(db, f, indent=1)
+        self.load_db(out, remember=True)
 
     # ---------------- car / system selection -----------------
     def on_car(self, restore=False):

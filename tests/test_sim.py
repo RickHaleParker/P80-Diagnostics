@@ -140,6 +140,53 @@ def test_ci_busy_then_id():
         k.close()
 
 
+def test_csv_import():
+    import csv as _csv
+    import json as _json
+    import tempfile
+    from p80diag import csvdb
+    db = _json.load(open(os.path.join(os.path.dirname(__file__), "..", "p80diag", "dtc_db.json")))
+    d = tempfile.mkdtemp()
+    codes, systems = os.path.join(d, "c.csv"), os.path.join(d, "c_systems.csv")
+    csvdb.export_codes(db, codes)
+    csvdb.export_systems(db, systems)
+    new, _ = csvdb.import_files(db, [codes, systems])          # unchanged round trip
+    assert new["tables"] == db["tables"] and new["menu"] == db["menu"]
+
+    rows = list(_csv.reader(open(codes, encoding="utf-8")))
+    h = rows[0]
+    T, B, DTC, DESC, ORIG, UPD = (h.index(x) for x in ("Table", "Wire byte (hex)", "DTC", "Description",
+                                                      "Original text", "Updated text"))
+    imm = [r for r in rows[1:] if r[T] == "IMM:41"]
+    imm[0][DESC] = "My better text"                              # edit the shown text
+    rows.remove(imm[1])                                          # delete a code
+    rows.append(["IMM:41", "", "", "", "", "0xAB", "", "IMM-999", "", "New code", ""])       # add a code
+    rows.append(["NEW:01", "addr 0x01", "", "", "", "2f", "", "NEW-111", "", "Hello", ""])  # new table
+    with open(codes, "w", newline="", encoding="utf-8") as f:
+        _csv.writer(f, delimiter=";").writerows(rows)           # semicolons, like some Excel setups
+    srows = list(_csv.reader(open(systems, encoding="utf-8")))
+    srows.append(["C70", "C 70 Test Module", "0x01", "", "", "NEW:01"])
+    with open(systems, "w", newline="", encoding="utf-8") as f:
+        _csv.writer(f).writerows(srows)
+    new, lines = csvdb.import_files(db, [systems, codes])
+    t = new["tables"]["IMM:41"]["codes"]
+    b0 = imm[0][B]
+    assert "My better text" in t[b0] and imm[1][B] not in t and t["0xAB"] == ["IMM-999", "New code"]
+    assert new["tables"]["NEW:01"]["codes"]["0x2F"] == ["NEW-111", "Hello"]
+    m = [e for e in new["menu"] if e["title"] == "C 70 Test Module"][0]
+    assert m["init_byte"] == 0x01 and m["table"] == "NEW:01"   # 0x01 already has odd parity
+    assert "1 added, 1 changed, 1 removed" in lines[0] or "2 added" in lines[0], lines
+
+    rows.append(["IMM:41", "", "", "", "", "0xZZ", "", "IMM-1", "", "x", ""])                # bad byte
+    with open(codes, "w", newline="", encoding="utf-8") as f:
+        _csv.writer(f).writerows(rows)
+    try:
+        csvdb.import_files(db, [codes])
+        raise AssertionError("expected an import error")
+    except csvdb.ImportError_ as e:
+        assert any("0xZZ" in p for p in e.problems), e.problems
+
+
 def test_service_reset():
     from p80diag import service
     for car, ci in (("C70", "newer"), ("S/V70", "newer"), ("850", "850"), ("C70", "850"), ("S/V40", "newer")):
@@ -154,5 +201,5 @@ def test_service_reset():
 
 if __name__ == "__main__":
     test_frame(); test_read_clear(); test_bad_parity_is_ignored(); test_text_merge(); test_elm_and_j2534()
-    test_id_decode(); test_j2534_retry(); test_elm_long_reply(); test_elm_retries(); test_ci_busy_then_id(); test_service_reset()
+    test_id_decode(); test_j2534_retry(); test_elm_long_reply(); test_elm_retries(); test_ci_busy_then_id(); test_csv_import(); test_service_reset()
     print("all tests passed")

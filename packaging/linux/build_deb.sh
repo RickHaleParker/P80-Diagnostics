@@ -50,7 +50,7 @@ else
 fi
 
 # docs
-cp "$TOP/README.md" "$STAGE/usr/share/doc/$PKG/"
+cp "$TOP/README.md" "$TOP/DATABASE.md" "$STAGE/usr/share/doc/$PKG/"
 {
     echo "P80 Diagnostics"
     echo "Copyright (C) 2026 Rick Hale Parker"
