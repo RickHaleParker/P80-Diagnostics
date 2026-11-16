@@ -127,6 +127,10 @@ For programmers. The CSV route above writes this for you.
 
 The app refuses a file without `tables` and `menu`.
 
+### The immobilizer entry and IMMO3 key programming
+
+The immobilizer system (address `0x41`, table `IMM:41`) carries the fault-code table like any other system. On top of that, when you connect to it on an S/V70, C70 or S/V40, the app offers **Key programming…** for IMMO3 (’99–’00) cars. That feature is built into the program (`p80diag/immo.py`), not configured in this database — the database only decides that the immobilizer appears in the System menu at address `0x41`. Editing `IMM:41` changes the fault-code texts, not the key-programming behaviour.
+
 ## Related file: fitment.json
 
 `p80diag/fitment.json` holds the rules that hide systems a car doesn't have (Body and Market). It's separate from the code database and explained inside the file itself.

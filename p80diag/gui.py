@@ -18,7 +18,7 @@ import queue
 import threading
 import time
 import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox, simpledialog
 
 from .kline import KLine, KLineError, hexs
 
@@ -190,8 +190,9 @@ class App(tk.Tk):
         self.b_clear = ttk.Button(btns, text="Clear codes", command=self.do_clear)
         self.b_id = ttk.Button(btns, text="Read ECU ID", command=self.do_id)
         self.b_svc = ttk.Button(btns, text="Reset service light", command=self.do_service)
+        self.b_key = ttk.Button(btns, text="Key programming…", command=self.do_key_programming)
         self.b_disc = ttk.Button(btns, text="Disconnect", command=self.do_disconnect)
-        for b in (self.b_conn, self.b_read, self.b_clear, self.b_id, self.b_svc, self.b_disc):
+        for b in (self.b_conn, self.b_read, self.b_clear, self.b_id, self.b_svc, self.b_key, self.b_disc):
             b.pack(side="left", padx=3)
         ttk.Button(btns, text="Save session…", command=self.save_session).pack(side="right", padx=3)
         ttk.Button(btns, text="New session", command=self.new_session).pack(side="right", padx=3)
@@ -491,7 +492,8 @@ class App(tk.Tk):
         if demo:
             from .sim import SimECU
             ecu = SimECU({entry["address"]: self._demo_codes(entry)},
-                         ci_type="850" if entry.get("car") == "850" else "newer")
+                         ci_type="850" if entry.get("car") == "850" else "newer",
+                         immo3=entry["address"] == 0x41)
         if kind == IFACE_ELM:
             from .elm import ElmLink
             if demo:
@@ -601,6 +603,10 @@ class App(tk.Tk):
         svc_ok = (on and self.entry and self.entry["address"] == service.CI_ADDR
                   and service.supported(self.conn_car or self.car.get()))
         self.b_svc.state(["!disabled"] if svc_ok else ["disabled"])
+        from . import immo
+        key_ok = (on and self.entry and self.entry["address"] == immo.IMMO_ADDR
+                  and immo.supports(self.conn_car or self.car.get()))
+        self.b_key.state(["!disabled"] if key_ok else ["disabled"])
         self.b_conn.state(["disabled"] if on else ["!disabled"])
         self.port.state(["disabled"] if on else ["!disabled"])
         self.iface.state(["disabled"] if on else ["!disabled", "readonly"])
@@ -726,6 +732,13 @@ class App(tk.Tk):
             self._after_session_end(kl)
         self.run_bg(lambda: service.reset(kl, car, self.log), done, "Resetting service light…", on_error=failed)
 
+    def do_key_programming(self):
+        from . import immo
+        if not self.kl or self.kl.addr != immo.IMMO_ADDR:
+            return
+        KeyProgrammingDialog(self, self.conn_car or self.car.get(),
+                             demo=(self.port.get() == SIM_PORT))
+
     def _after_session_end(self, kl):
         """The reset ends the ECU session (A0). Close the link."""
         def job():
@@ -795,6 +808,266 @@ class App(tk.Tk):
                 self.kl.close()
             except Exception:  # noqa: BLE001
                 pass
+        self.destroy()
+
+
+class KeyProgrammingDialog(tk.Toplevel):
+    """IMMO3 immobilizer key programming (address 0x41).
+
+    Opens with the mandatory lockout-timer pre-check. The PIN cannot be sent
+    while the timer is armed. Add-key is non-destructive; erase needs a
+    type-to-confirm. Closing sends A0 and disconnects, so there is never a
+    second 5-baud init in the same key cycle.
+    """
+
+    WARNING = ("UNTESTED ON A REAL CAR.  IMMO3 ('99-'00) cars only — not the IMMO1/2 "
+               "immobilizer on a pre-'99 car.\n"
+               "A WRONG PIN arms a lockout (~5 min) that blocks every unlock; the app "
+               "never retries a PIN.\n"
+               "ERASE wipes EVERY key — only a key taught afterward will start the car.")
+
+    def __init__(self, app, car, demo=False):
+        super().__init__(app)
+        self.app = app
+        self.link = app.kl
+        self.car = car
+        self.demo = demo
+        self.unlocked = False
+        self._locked = True       # assume locked until the pre-check says otherwise
+        self._closing = False
+        self.title("IMMO3 Key Programming")
+        self.transient(app)
+        self.resizable(False, False)
+        pad = {"padx": 10, "pady": 4}
+
+        ttk.Label(self, text=self.WARNING, foreground="#b00000", justify="left",
+                  wraplength=520).pack(anchor="w", **pad)
+        ttk.Separator(self).pack(fill="x", padx=10, pady=4)
+
+        self.lock_var = tk.StringVar(value="Checking the lockout timer…")
+        ttk.Label(self, textvariable=self.lock_var, wraplength=520, justify="left").pack(anchor="w", **pad)
+
+        pf = ttk.Frame(self)
+        pf.pack(fill="x", **pad)
+        ttk.Label(pf, text="PIN (4 digits)").pack(side="left")
+        self.pin_var = tk.StringVar()
+        self.pin_var.trace_add("write", lambda *_: self._update_preview())
+        self.pin_entry = ttk.Entry(pf, textvariable=self.pin_var, width=8)
+        self.pin_entry.pack(side="left", padx=6)
+        self.b_unlock = ttk.Button(pf, text="Unlock", command=self.do_unlock)
+        self.b_unlock.pack(side="left", padx=4)
+        self.b_recheck = ttk.Button(pf, text="Re-check lockout", command=self._check_lockout)
+        self.b_recheck.pack(side="left", padx=4)
+
+        self.preview_var = tk.StringVar(value="Will send: A3 02 00 — —")
+        ttk.Label(self, textvariable=self.preview_var, foreground="gray").pack(anchor="w", padx=10)
+        if demo:
+            ttk.Label(self, text="Demo immobox — the correct PIN is 1234.",
+                      foreground="#0060a0").pack(anchor="w", padx=10)
+
+        ttk.Separator(self).pack(fill="x", padx=10, pady=4)
+        self.status_var = tk.StringVar(value="Unlock first to read the key count and status.")
+        ttk.Label(self, textvariable=self.status_var, wraplength=520, justify="left").pack(anchor="w", **pad)
+
+        af = ttk.Frame(self)
+        af.pack(fill="x", **pad)
+        self.b_add = ttk.Button(af, text="Add key (next slot)", command=self.do_add)
+        self.b_add.pack(side="left", padx=4)
+        self.b_erase = ttk.Button(af, text="Erase ALL keys + learn", command=self.do_erase)
+        self.b_erase.pack(side="left", padx=4)
+
+        ttk.Separator(self).pack(fill="x", padx=10, pady=4)
+        bf = ttk.Frame(self)
+        bf.pack(fill="x", **pad)
+        self.b_close = ttk.Button(bf, text="Close session", command=self.on_close)
+        self.b_close.pack(side="right")
+
+        self._set_unlock_enabled(False)
+        self._set_program_enabled(False)
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+        self.grab_set()
+        self.pin_entry.focus_set()
+        self._check_lockout()
+
+    # -- small helpers ---------------------------------------------------
+    def _update_preview(self):
+        from . import immo
+        try:
+            pin = immo.parse_pin(self.pin_var.get())
+            self.preview_var.set("Will send: " + immo.unlock_request_hex(pin))
+        except ValueError:
+            self.preview_var.set("Will send: A3 02 00 — —  (enter 4 digits)")
+
+    def _set_unlock_enabled(self, on):
+        for w in (self.pin_entry, self.b_unlock):
+            w.state(["!disabled"] if on else ["disabled"])
+
+    def _set_program_enabled(self, on):
+        for b in (self.b_add, self.b_erase):
+            b.state(["!disabled"] if on else ["disabled"])
+
+    def _busy(self, on):
+        for w in (self.pin_entry, self.b_unlock, self.b_recheck, self.b_add, self.b_erase, self.b_close):
+            w.state(["disabled"] if on else ["!disabled"])
+        if not on:
+            self._set_unlock_enabled(not self._locked)
+            self._set_program_enabled(self.unlocked)
+
+    def _run(self, job, done, label, on_error=None):
+        self._busy(True)
+
+        def _done(res):
+            if not self.winfo_exists():
+                return
+            self._busy(False)
+            if done:
+                done(res)
+
+        def _err(err):
+            if not self.winfo_exists():
+                return
+            self._busy(False)
+            if on_error:
+                on_error(err)
+        self.app.run_bg(job, _done, label, on_error=_err)
+
+    # -- operations ------------------------------------------------------
+    def _check_lockout(self):
+        from . import immo
+
+        def done(lock):
+            self._locked = lock["locked"]
+            if lock["locked"]:
+                self.lock_var.set(
+                    f"LOCKED OUT: {lock['units']} unit(s) left (~{lock['seconds']} s). A wrong PIN was "
+                    "entered earlier. Unlock is disabled until it clears. Cycle the ignition to position "
+                    "II to start a new key cycle, then reconnect.")
+                self._set_unlock_enabled(False)
+            else:
+                self.lock_var.set("Lockout timer clear (00). You may enter the PIN.")
+                self._set_unlock_enabled(True)
+
+        def err(e):
+            self._locked = True
+            self.lock_var.set(f"Could not read the lockout timer: {e}")
+            self._set_unlock_enabled(False)
+        self._run(lambda: immo.check_lockout(self.link, self.app.log), done,
+                  "Reading the lockout timer…", err)
+
+    def do_unlock(self):
+        from . import immo
+        try:
+            pin = immo.parse_pin(self.pin_var.get())
+        except ValueError as e:
+            messagebox.showerror("PIN", str(e), parent=self)
+            return
+        if not messagebox.askyesno(
+                "Unlock immobilizer",
+                f"Send this to the immobilizer?\n\n    {immo.unlock_request_hex(pin)}\n\n"
+                "A WRONG PIN arms a ~5 minute lockout, and the app will NOT retry. "
+                "Make sure the PIN is right.", parent=self):
+            return
+
+        def done(_):
+            self.unlocked = True
+            self._set_unlock_enabled(False)
+            self._set_program_enabled(True)
+            self.app.add_read("Key programming", [("", "Unlock", "Unlocked (E3)")])
+            self._refresh_status()
+
+        def err(e):
+            self.app.add_read("Key programming", [("", "Unlock failed", str(e))])
+            messagebox.showerror("Unlock", str(e), parent=self)
+            self._check_lockout()   # a wrong PIN will have armed the timer; show it
+        self._run(lambda: immo.unlock(self.link, pin, self.app.log), done, "Unlocking…", err)
+
+    def _refresh_status(self):
+        from . import immo
+
+        def job():
+            return immo.key_count(self.link, self.app.log), immo.teach_status(self.link, self.app.log)
+
+        def show(res):
+            kc, ts = res
+            n = kc["count"]
+            self.status_var.set(f"Keys taught: {n if n is not None else '?'}   "
+                                f"(count {kc['raw']}, status {ts['raw']})")
+        self._run(job, show, "Reading key count and status…",
+                  lambda e: self.status_var.set(f"Status read failed: {e}"))
+
+    def do_add(self):
+        from . import immo
+        if not messagebox.askyesno(
+                "Add key",
+                "Teach the key now in the ignition into the next free slot?\n\n"
+                "This does not erase any existing key.", parent=self):
+            return
+
+        def done(res):
+            msg = ("Key already in the table (unlock confirmed)" if res["already"]
+                   else "Key added to the next slot")
+            self.app.add_read("Key programming", [("", "Add key", msg)])
+            messagebox.showinfo("Add key", msg, parent=self)
+            self._refresh_status()
+
+        def err(e):
+            self.app.add_read("Key programming", [("", "Add key failed", str(e))])
+            messagebox.showerror("Add key", str(e), parent=self)
+        self._run(lambda: immo.add_key(self.link, self.app.log), done, "Adding key…", err)
+
+    def do_erase(self):
+        from . import immo
+        ans = simpledialog.askstring(
+            "Erase ALL keys",
+            "DESTRUCTIVE — this erases EVERY key stored in the immobilizer.\n\n"
+            "Only the key now in the ignition will start the car afterward. To keep any other key, "
+            "add it afterward with that key in the ignition. If the re-learn then fails, the car "
+            "will not start.\n\n"
+            "Confirm every key you want to keep is physically present, then type ERASE to proceed:",
+            parent=self)
+        if ans != "ERASE":
+            self.app.log("Erase cancelled")
+            return
+
+        def done(_):
+            self.app.add_read("Key programming",
+                              [("", "Erase + learn", "All keys erased; present key learned to slot 1")])
+            messagebox.showinfo("Erase + learn",
+                                "All keys erased and the present key learned into slot 1.\n\n"
+                                "Add any other keys now, each with that key in the ignition.", parent=self)
+            self._refresh_status()
+
+        def err(e):
+            self.app.add_read("Key programming", [("", "Erase + learn failed", str(e))])
+            messagebox.showerror("Erase + learn", str(e), parent=self)
+        self._run(lambda: immo.erase_and_learn(self.link, self.app.log), done, "Erasing + learning…", err)
+
+    def on_close(self):
+        from . import immo
+        if self._closing:
+            return
+        self._closing = True
+        link = self.link
+
+        def job():
+            try:
+                immo.close(link, self.app.log)   # A0 -> E0
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                link.close()
+            except Exception:  # noqa: BLE001
+                pass
+
+        def done(_):
+            self.app.kl = None
+            self.app._set_conn_state(False)
+            self.app.status.set("Not connected (immobilizer session closed)")
+        self.app.run_bg(job, done, "Closing the immobilizer session…")
+        try:
+            self.grab_release()
+        except tk.TclError:
+            pass
         self.destroy()
 
 

@@ -17,14 +17,27 @@ from .kline import checksum, TESTER
 
 class SimECU:
     def __init__(self, dtcs_by_addr: dict[int, list[int]] | None = None, bit_time=0.2, drop_rate=0.0,
-                 ci_type="newer"):
-        """ci_type: "newer" or "850", the kind of combined instrument (0x51)."""
+                 ci_type="newer", immo3=False, immo_pin=b"\x12\x34", immo_keys=2):
+        """ci_type: "newer" or "850", the kind of combined instrument (0x51).
+
+        immo3: if True, the module at 0x41 answers the IMMO3 key-programming
+        services as well as the ordinary read/clear/ID ones. immo_pin is the
+        correct 2-byte BCD unlock PIN (default 1234); immo_keys the starting
+        key count."""
         self.dtcs = dtcs_by_addr if dtcs_by_addr is not None else {}
         self.ci_type = ci_type
         self.ci_pending = True      # like the real C70 instrument: 7E B9 23 before the ID
         self.service_reset = False
         self.bit_time = bit_time
         self.drop_rate = drop_rate
+        # IMMO3 demo immobox state (used only when immo3 is True)
+        self.immo3 = immo3
+        self.immo_pin = bytes(immo_pin)
+        self.immo_keys = immo_keys
+        self.immo_unlocked = False
+        self.immo_present_stored = False    # is the key now in the ignition already taught?
+        self.immo_lockout_units0 = 0        # units at the moment a wrong PIN armed the timer
+        self.immo_lockout_armed_at = 0.0
 
     def dtcs_for(self, addr):
         return self.dtcs.setdefault(addr, [])
@@ -157,12 +170,66 @@ class SimSerial:
         self._push(frame, delay=0.03)
 
 
+def _immo_lockout_units(ecu: SimECU) -> int:
+    """Current lockout units, counting down ~1 unit every 10 s since a wrong PIN."""
+    if ecu.immo_lockout_units0 <= 0:
+        return 0
+    elapsed = time.monotonic() - ecu.immo_lockout_armed_at
+    return max(0, ecu.immo_lockout_units0 - int(elapsed / 10))
+
+
+def _immo3_reply(ecu: SimECU, data: bytes):
+    """IMMO3 key-programming replies for the demo immobox at 0x41, or None to let
+    the ordinary handler answer (keep-alive, read/clear DTCs, ECU ID)."""
+    svc = data[0]
+    sub = data[1:]
+    if svc == 0xA5 and sub[:2] == b"\x08\x01":          # read lockout timer
+        return bytes([0xE5, 0x08, _immo_lockout_units(ecu)])
+    if svc == 0xA5 and sub[:2] == b"\x11\x01":          # teach status
+        return bytes([0xE5, 0x11, 0x01 if ecu.immo_unlocked else 0x00])
+    if svc == 0xA3:                                      # unlock
+        if len(data) != 5 or sub[:2] != b"\x02\x00":
+            return b"\x7F\xA3\x12"                       # invalid format (e.g. a 4-byte variant)
+        if _immo_lockout_units(ecu) > 0:
+            return b"\x7F\xA3\x33"                       # armed: refuse even the correct PIN
+        if bytes(data[3:5]) == ecu.immo_pin:
+            ecu.immo_unlocked = True
+            return b"\xE3\x02"
+        ecu.immo_lockout_units0 = 30                     # wrong PIN arms the timer
+        ecu.immo_lockout_armed_at = time.monotonic()
+        return b"\x7F\xA3\x33"
+    if svc == 0xB9 and sub[:1] == b"\x05":              # key count
+        return bytes([0xF9, 0x05, ecu.immo_keys])
+    if svc == 0xB2 and sub[:1] == b"\x01":             # add key, next slot
+        if not ecu.immo_unlocked:
+            return b"\x7F\xB2\x33"
+        if ecu.immo_present_stored:
+            return b"\x7F\xB2\x22"                       # already in table (expected on re-add)
+        ecu.immo_keys += 1
+        ecu.immo_present_stored = True
+        return b"\xF2\x01"
+    if svc == 0xB2 and sub[:1] == b"\x18":             # erase all + learn slot 1
+        if not ecu.immo_unlocked:
+            return b"\x7F\xB2\x33"
+        ecu.immo_keys = 1
+        ecu.immo_present_stored = True
+        return b"\xF2\x18"
+    if svc == 0xA0:                                      # close: reset state, let A0 -> E0 below
+        ecu.immo_unlocked = False
+    return None
+
+
 def ecu_reply(ecu: SimECU, addr: int, data: bytes):
     """The pretend ECU's reply frame to a request, or None if it stays silent."""
     if ecu.drop_rate and random.random() < ecu.drop_rate:
         return None
     svc = data[0]
-    if svc == 0xA1:
+    out = None
+    if addr == 0x41 and getattr(ecu, "immo3", False):
+        out = _immo3_reply(ecu, data)
+    if out is not None:
+        pass
+    elif svc == 0xA1:
         out = b"\xE1"
     elif svc == 0xAE:
         out = bytes([0xEE, data[1]]) + bytes(ecu.dtcs_for(addr))

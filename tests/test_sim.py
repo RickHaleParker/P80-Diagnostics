@@ -187,6 +187,98 @@ def test_csv_import():
         assert any("0xZZ" in p for p in e.problems), e.problems
 
 
+def test_immo3():
+    """IMMO3 key programming on all three backends, against the demo immobox."""
+    from p80diag import immo
+    from p80diag.elm import ElmLink
+    from p80diag.j2534 import J2534Link
+    from p80diag.sim import SimElmSerial, FakeJ2534
+    makers = (lambda e: KLine(SimSerial(e), log=None, bit_time=BT),
+              lambda e: ElmLink(SimElmSerial(e), log=None),
+              lambda e: J2534Link(FakeJ2534(e), log=None))
+    for make in makers:
+        # happy path: clear lockout, unlock, add, re-add, erase, counts, close
+        ecu = SimECU(bit_time=BT, immo3=True, immo_pin=b"\x12\x34", immo_keys=2)
+        k = make(ecu)
+        k.connect(0x41)
+        assert not immo.check_lockout(k, log=None)["locked"]
+        assert immo.unlock(k, b"\x12\x34", log=None)["ok"]
+        assert immo.key_count(k, log=None)["count"] == 2
+        assert immo.teach_status(k, log=None)["status"] == 0x01   # unlocked
+        r1 = immo.add_key(k, log=None)                            # new key -> F2 01
+        assert r1["ok"] and not r1["already"]
+        assert immo.key_count(k, log=None)["count"] == 3
+        r2 = immo.add_key(k, log=None)                            # same key -> 7F B2 22
+        assert r2["ok"] and r2["already"]
+        assert immo.erase_and_learn(k, log=None)["ok"]
+        assert immo.key_count(k, log=None)["count"] == 1
+        immo.close(k, log=None)
+        assert k.addr is None
+        k.close()
+
+        # a wrong PIN arms the lockout; it then refuses even the correct PIN
+        ecu = SimECU(bit_time=BT, immo3=True, immo_pin=b"\x12\x34")
+        k = make(ecu)
+        k.connect(0x41)
+        try:
+            immo.unlock(k, b"\x99\x99", log=None)
+            raise AssertionError("wrong PIN should raise")
+        except KLineError as e:
+            assert "A3 33" in str(e) or "lockout" in str(e).lower(), e
+        assert immo.check_lockout(k, log=None)["locked"]
+        try:
+            immo.unlock(k, b"\x12\x34", log=None)                 # correct, but armed: not sent
+            raise AssertionError("armed lockout should block unlock")
+        except KLineError as e:
+            assert "armed" in str(e).lower() or "lockout" in str(e).lower(), e
+        k.close()
+
+        # the 4-byte A3 variant is an invalid format -> 7F A3 12
+        ecu = SimECU(bit_time=BT, immo3=True)
+        k = make(ecu)
+        k.connect(0x41)
+        immo.open_session(k, log=None)
+        assert k.request(b"\xA3\x02\x00\x12")[:3] == b"\x7F\xA3\x12"
+        k.close()
+
+        # add/erase before unlock is refused
+        ecu = SimECU(bit_time=BT, immo3=True)
+        k = make(ecu)
+        k.connect(0x41)
+        try:
+            immo.add_key(k, log=None)
+            raise AssertionError("add before unlock should raise")
+        except KLineError:
+            pass
+        k.close()
+
+
+def test_immo3_gating():
+    from p80diag import immo
+    assert immo.supports("C70") and immo.supports("S/V70") and immo.supports("S/V40")
+    assert not immo.supports("850") and not immo.supports("900 & S/V90")
+    assert immo.parse_pin("1234") == b"\x12\x34" and immo.parse_pin(" 0907 ") == b"\x09\x07"
+    for bad in ("123", "12345", "12ab", ""):
+        try:
+            immo.parse_pin(bad)
+            raise AssertionError(f"{bad!r} should be rejected")
+        except ValueError:
+            pass
+    assert immo.unlock_request_hex(b"\x12\x34") == "A3 02 00 12 34"
+
+
+def test_immo3_read_codes_still_work():
+    """With the immobox on, the 0x41 module still reads/clears DTCs and the ECU ID."""
+    ecu = SimECU({0x41: [0x02, 0x06]}, bit_time=BT, immo3=True)
+    k = KLine(SimSerial(ecu), log=None, bit_time=BT)
+    k.connect(0x41)
+    assert k.read_dtcs() == [0x02, 0x06]
+    k.clear_dtcs()
+    assert k.read_dtcs() == []
+    assert k.read_id()["hw_part"]
+    k.close()
+
+
 def test_service_reset():
     from p80diag import service
     for car, ci in (("C70", "newer"), ("S/V70", "newer"), ("850", "850"), ("C70", "850"), ("S/V40", "newer")):
@@ -201,5 +293,6 @@ def test_service_reset():
 
 if __name__ == "__main__":
     test_frame(); test_read_clear(); test_bad_parity_is_ignored(); test_text_merge(); test_elm_and_j2534()
-    test_id_decode(); test_j2534_retry(); test_elm_long_reply(); test_elm_retries(); test_ci_busy_then_id(); test_csv_import(); test_service_reset()
+    test_id_decode(); test_j2534_retry(); test_elm_long_reply(); test_elm_retries(); test_ci_busy_then_id(); test_csv_import()
+    test_immo3(); test_immo3_gating(); test_immo3_read_codes_still_work(); test_service_reset()
     print("all tests passed")
