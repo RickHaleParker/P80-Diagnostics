@@ -170,6 +170,10 @@ class SimSerial:
         self._push(frame, delay=0.03)
 
 
+# ======================================================================
+# IMMO3 DEMO IMMOBOX  --  the simulated key-programming responder for 0x41.
+# Real protocol: p80diag/immo.py.  Hooked into ecu_reply(), just below.
+# ======================================================================
 def _immo_lockout_units(ecu: SimECU) -> int:
     """Current lockout units, counting down ~1 unit every 10 s since a wrong PIN."""
     if ecu.immo_lockout_units0 <= 0:
@@ -217,6 +221,7 @@ def _immo3_reply(ecu: SimECU, data: bytes):
     if svc == 0xA0:                                      # close: reset state, let A0 -> E0 below
         ecu.immo_unlocked = False
     return None
+# ----------------------- end IMMO3 demo immobox -----------------------
 
 
 def ecu_reply(ecu: SimECU, addr: int, data: bytes):
@@ -225,7 +230,7 @@ def ecu_reply(ecu: SimECU, addr: int, data: bytes):
         return None
     svc = data[0]
     out = None
-    if addr == 0x41 and getattr(ecu, "immo3", False):
+    if addr == 0x41 and getattr(ecu, "immo3", False):   # IMMO3: demo immobox answers first
         out = _immo3_reply(ecu, data)
     if out is not None:
         pass

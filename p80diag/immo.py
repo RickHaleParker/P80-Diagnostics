@@ -1,5 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Rick Hale Parker
+#
+# ######################################################################
+# ##   IMMO3 IMMOBILIZER KEY PROGRAMMING  --  THE PROTOCOL LIVES HERE  ##
+# ##   Every K-line command / response for IMMO3 is in this one file.  ##
+# ######################################################################
 """IMMO3 immobilizer key programming for 1999-2000 P80 cars (address 0x41).
 
 Decoded from a matthewsvolvosite writeup ("Keys, IMMO3, VIDA and you"),

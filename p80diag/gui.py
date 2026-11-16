@@ -190,7 +190,7 @@ class App(tk.Tk):
         self.b_clear = ttk.Button(btns, text="Clear codes", command=self.do_clear)
         self.b_id = ttk.Button(btns, text="Read ECU ID", command=self.do_id)
         self.b_svc = ttk.Button(btns, text="Reset service light", command=self.do_service)
-        self.b_key = ttk.Button(btns, text="Key programming…", command=self.do_key_programming)
+        self.b_key = ttk.Button(btns, text="Key programming…", command=self.do_key_programming)  # IMMO3
         self.b_disc = ttk.Button(btns, text="Disconnect", command=self.do_disconnect)
         for b in (self.b_conn, self.b_read, self.b_clear, self.b_id, self.b_svc, self.b_key, self.b_disc):
             b.pack(side="left", padx=3)
@@ -493,7 +493,7 @@ class App(tk.Tk):
             from .sim import SimECU
             ecu = SimECU({entry["address"]: self._demo_codes(entry)},
                          ci_type="850" if entry.get("car") == "850" else "newer",
-                         immo3=entry["address"] == 0x41)
+                         immo3=entry["address"] == 0x41)   # IMMO3: arm the demo immobox at 0x41
         if kind == IFACE_ELM:
             from .elm import ElmLink
             if demo:
@@ -603,6 +603,7 @@ class App(tk.Tk):
         svc_ok = (on and self.entry and self.entry["address"] == service.CI_ADDR
                   and service.supported(self.conn_car or self.car.get()))
         self.b_svc.state(["!disabled"] if svc_ok else ["disabled"])
+        # --- IMMO3: Key-programming button — on only for the immobilizer (0x41) of a supported car ---
         from . import immo
         key_ok = (on and self.entry and self.entry["address"] == immo.IMMO_ADDR
                   and immo.supports(self.conn_car or self.car.get()))
@@ -732,6 +733,7 @@ class App(tk.Tk):
             self._after_session_end(kl)
         self.run_bg(lambda: service.reset(kl, car, self.log), done, "Resetting service light…", on_error=failed)
 
+    # --- IMMO3: open the key-programming dialog (KeyProgrammingDialog, below) ---
     def do_key_programming(self):
         from . import immo
         if not self.kl or self.kl.addr != immo.IMMO_ADDR:
@@ -811,6 +813,11 @@ class App(tk.Tk):
         self.destroy()
 
 
+# ======================================================================
+# IMMO3 KEY-PROGRAMMING DIALOG  --  the entire UI for the feature.
+# Protocol calls go to p80diag/immo.py; nothing here touches the bus
+# directly.  Self-contained: the rest of the GUI only opens it (above).
+# ======================================================================
 class KeyProgrammingDialog(tk.Toplevel):
     """IMMO3 immobilizer key programming (address 0x41).
 
@@ -1069,6 +1076,7 @@ class KeyProgrammingDialog(tk.Toplevel):
         except tk.TclError:
             pass
         self.destroy()
+# -------------------- end IMMO3 key-programming dialog ----------------
 
 
 def main():

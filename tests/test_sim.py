@@ -187,6 +187,10 @@ def test_csv_import():
         assert any("0xZZ" in p for p in e.problems), e.problems
 
 
+# ======================================================================
+# IMMO3 TESTS  --  drive p80diag/immo.py through all three backends
+# against the demo immobox in sim.py.  Run: python3 tests/test_sim.py
+# ======================================================================
 def test_immo3():
     """IMMO3 key programming on all three backends, against the demo immobox."""
     from p80diag import immo
@@ -277,6 +281,7 @@ def test_immo3_read_codes_still_work():
     assert k.read_dtcs() == []
     assert k.read_id()["hw_part"]
     k.close()
+# ------------------------- end IMMO3 tests ----------------------------
 
 
 def test_service_reset():
