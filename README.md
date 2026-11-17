@@ -83,7 +83,7 @@ Keep the PIN safe; it is specific to the car.
 
 ## Car options and hidden systems
 
-Pick your car, then its **Body** and **Market**. Systems your car can't have are hidden from the System menu. For example, a C70 coupe hides the convertible's Cab Control Unit and Roll Over Protection. A North American C70 hides the immobilizer.
+Pick your car, then its **Body** and **Market**. Systems your car can't have are hidden from the System menu. For example, a C70 coupe hides the convertible's Cab Control Unit and Roll Over Protection.
 
 The rules live in `p80diag/fitment.json` and can be edited. Tick **Show all systems** to ignore them.
 
