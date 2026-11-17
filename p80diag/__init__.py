@@ -1,4 +1,4 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Rick Hale Parker
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"

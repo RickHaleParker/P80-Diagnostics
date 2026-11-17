@@ -11,9 +11,9 @@ It has two tabs:
 
 ## Install
 
-**Linux Mint / Ubuntu / Debian.** Double-click `p80-diagnostics_1.2.0_all.deb`, or run `sudo apt install ./p80-diagnostics_1.2.0_all.deb`. It pulls in `python3-tk` and `python3-serial`, and adds **P80 Diagnostics** to the menu (Utilities). You can also start it with `p80diag` in a terminal. To use a USB cable, your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and in. Remove with `sudo apt remove p80-diagnostics`.
+**Linux Mint / Ubuntu / Debian.** Double-click `p80-diagnostics_1.2.1_all.deb`, or run `sudo apt install ./p80-diagnostics_1.2.1_all.deb`. It pulls in `python3-tk` and `python3-serial`, and adds **P80 Diagnostics** to the menu (Utilities). You can also start it with `p80diag` in a terminal. To use a USB cable, your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and in. Remove with `sudo apt remove p80-diagnostics`.
 
-**Windows.** Run `P80Diagnostics-1.2.0-Setup.exe`. It installs to Program Files and adds a Start menu entry (and a desktop icon if you tick it). No Python needed. The program is 32-bit, so J2534 drivers work. Windows may warn that the file is from an unknown publisher, because it isn't code-signed: click **More info → Run anyway**.
+**Windows.** Run `P80Diagnostics-1.2.1-Setup.exe`. It installs to Program Files and adds a Start menu entry (and a desktop icon if you tick it). No Python needed. The program is 32-bit, so J2534 drivers work. Windows may warn that the file is from an unknown publisher, because it isn't code-signed: click **More info → Run anyway**.
 
 **From source (any system).** Needs Python 3.8+ with Tk (included with the python.org installers on Windows and macOS; on Linux install `python3-tk`).
 
